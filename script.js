@@ -7,7 +7,6 @@
   var SVCS = [
     { id: 'mow', label: 'Lawn care & mowing', freq: ['One-time', 'Weekly', 'Every 2 weeks'] },
     { id: 'maint', label: 'Landscape maintenance' },
-    { id: 'design', label: 'Landscape design' },
     { id: 'seed', label: 'Seeding & hydroseeding' },
     { id: 'gutter', label: 'Gutters & siding' },
     { id: 'snow', label: 'Snow plowing', freq: ['Whole season', 'Per storm'] },

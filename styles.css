@@ -51,7 +51,8 @@ input, textarea, button { font: inherit; }
 .hero-shade { position: absolute; inset: 0; background: rgba(16, 32, 22, 0.34); }
 .hero-in { position: relative; padding-top: 72px; padding-bottom: 96px; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-end; justify-content: space-between; }
 .hero-copy { flex: 1 1 460px; min-width: 0; color: #fff; display: flex; flex-direction: column; gap: 20px; text-shadow: 0 2px 14px rgba(0,0,0,0.55); }
-.hero-copy h1 { margin: 0; font-family: var(--display); font-weight: 700; font-size: clamp(44px, 6vw, 84px); line-height: 1; letter-spacing: 0.01em; }
+.hero-copy h1 { margin: 0; font-family: var(--display); font-weight: 700; font-size: clamp(40px, 5.4vw, 76px); line-height: 1.02; letter-spacing: 0.01em; }
+.hero-copy h1 .h1-sub { display: block; margin-top: 0.35em; font-size: 0.5em; line-height: 1.15; color: var(--tan); }
 .hero-sub { margin: 0; font-size: 20px; max-width: 30rem; font-weight: 500; }
 .tags { display: flex; flex-wrap: wrap; gap: 10px; text-shadow: none; }
 .tag { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; font-weight: 600; background: rgba(22,39,29,0.75); color: #F7F6F0; padding: 7px 12px; border-radius: 4px; }
