@@ -46,7 +46,7 @@
     var lines = [
       'Hi Hafele, ' + (s ? s.ask.charAt(0).toLowerCase() + s.ask.slice(1) : 'I have a job') +
         (s && s.freq && st.freq ? ' (' + st.freq.toLowerCase() + ')' : '') +
-        '. Can you come out, take a look and give me a price?',
+        '. Can I get a quote? I\'m sending photos of the property (lawn / driveway) with this message.',
       '',
       'Name: ' + st.name.trim(),
       'Cell: ' + st.phone.trim(),
@@ -64,7 +64,7 @@
   function render() {
     var h = '';
     if (st.step !== 3) {
-      h += '<div class="glass-head"><h2>Get a price</h2><span class="count">0' + st.step + ' / 02</span></div>';
+      h += '<div class="glass-head"><h2>Request a quote</h2><span class="count">0' + st.step + ' / 02</span></div>';
     }
 
     if (st.step === 1) {
@@ -77,7 +77,7 @@
           s.freq.map(function (f) { return chip('data-freq="' + esc(f) + '"', esc(f), st.freq === f); }).join('') +
           '</div></fieldset>';
       }
-      h += '<p class="lead">We’ll come out, take a look and give you a price.</p>';
+      h += '<p class="lead">Send us a few photos of your property and we\u2019ll get back to you with a quote.</p>';
     }
 
     if (st.step === 2) {
@@ -86,6 +86,7 @@
         '<label>Name<input type="text" autocomplete="name" data-field="name" value="' + esc(st.name) + '"></label>' +
         '<label>Cell<input type="tel" autocomplete="tel" data-field="phone" value="' + esc(st.phone) + '"></label>' +
         '<label class="full">Property address<input type="text" autocomplete="street-address" data-field="addr" value="' + esc(st.addr) + '"></label>' +
+        '<div class="full photo-tip"><span class="photo-tip-h">Photos</span><p>After you tap Send, your text to Hafele opens. Tap <strong>+</strong> and add 2\u20134 photos of your lawn, driveway or the area you need done.</p></div>' +
         '<label class="full">Notes (optional)<textarea rows="2" data-field="notes" placeholder="Gate code, dog in the yard, steep hill…">' + esc(st.notes) + '</textarea></label>' +
         '</div>';
     }
@@ -97,13 +98,13 @@
         (st.step === 2 ? 'Send' : 'Continue') + '</button></div>';
     } else {
       var smsHref = 'sms:' + PHONE + '?&body=' + encodeURIComponent(messageBody());
-      var mailHref = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('Price request: ' + (svc() ? svc().label : '')) +
+      var mailHref = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('Quote request: ' + (svc() ? svc().label : '')) +
         '&body=' + encodeURIComponent(messageBody());
       h += '<div class="done" style="display:flex;flex-direction:column;gap:12px">' +
         '<span class="done-kicker">ALMOST DONE</span>' +
-        '<h2>Hit send in Messages.</h2>' +
-        '<p>Your message is ready to text to Hafele. We reply within 24 hours to set up a time to come take a look.</p>' +
-        '<p>Texting didn’t open? <a href="' + esc(smsHref) + '">Try again</a> or <a href="' + esc(mailHref) + '">send it by email</a>.</p>' +
+        '<h2>Add your photos, then send.</h2>' +
+        '<ol class="done-steps"><li>In Messages, tap <strong>+</strong> next to the text box.</li><li>Pick 2\u20134 photos of your lawn, driveway or the area you need done.</li><li>Hit send. We reply within 24 hours with your quote.</li></ol>' +
+        '<p>Texting didn’t open? <a href="' + esc(smsHref) + '">Try again</a> or <a href="' + esc(mailHref) + '">send it by email</a> and attach your photos there.</p>' +
         '<button type="button" class="linkish" data-act="reset">Ask about something else</button>' +
         '</div>';
     }
@@ -157,7 +158,7 @@
     return '<li class="svc-card">' + media(s.media) +
       '<div class="svc-meta"><span class="svc-num">' + String(i + 1).padStart(2, '0') + '</span>' +
       '<h3>' + esc(s.label) + '</h3></div>' +
-      '<a class="svc-cta" href="#book" data-pick="' + s.id + '">Get a price</a></li>';
+      '<a class="svc-cta" href="#book" data-pick="' + s.id + '">Request a quote</a></li>';
   }).join('');
   list.addEventListener('click', function (e) {
     var a = e.target.closest('[data-pick]');
