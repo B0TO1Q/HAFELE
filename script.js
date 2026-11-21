@@ -45,7 +45,7 @@
   function okNow() {
     var s = svc();
     if (st.step === 1) return !!s && (!s.freq || !!st.freq);
-    if (st.step === 2) return isSnow() || (!!st.day && !!st.win);
+    if (st.step === 2) return true; // day and time are optional preferences
     if (st.step === 3) return !!(st.name.trim() && st.phone.trim() && st.addr.trim());
     return false;
   }
@@ -53,7 +53,8 @@
   function when() {
     if (isSnow()) return 'Snow route' + (st.freq ? ' · ' + st.freq.toLowerCase() : '');
     var d = dayObj();
-    return (d ? d.dow + ' ' + d.md : '') + (st.win ? ' · ' + st.win.toLowerCase() : '');
+    if (!d && !st.win) return 'flexible on timing';
+    return 'prefers ' + (d ? d.dow + ' ' + d.md : 'any day') + (st.win ? ' · ' + st.win.toLowerCase() : '');
   }
 
   function summary() {
@@ -64,7 +65,7 @@
 
   function messageBody() {
     var lines = [
-      'Booking request from the website',
+      'Service inquiry from the website',
       'Service: ' + summary(),
       'Name: ' + st.name.trim(),
       'Cell: ' + st.phone.trim(),
@@ -82,7 +83,7 @@
   function render() {
     var h = '';
     if (st.step !== 4) {
-      h += '<div class="glass-head"><h2>Book a visit</h2><span class="count">0' + st.step + ' / 03</span></div>';
+      h += '<div class="glass-head"><h2>Service inquiry</h2><span class="count">0' + st.step + ' / 03</span></div>';
       h += '<div class="bars" aria-hidden="true">' +
         [1, 2, 3].map(function (n) { return '<span class="' + (st.step >= n ? 'on' : '') + '"></span>'; }).join('') +
         '</div>';
@@ -104,11 +105,11 @@
       if (isSnow()) {
         h += '<div class="note"><p><strong>Snow runs storm by storm.</strong></p><p>No day to pick. Once you’re on the route, we come when it snows.</p></div>';
       } else {
-        h += '<fieldset><legend>Pick a day</legend><div class="days">' +
+        h += '<fieldset><legend>Preferred day (optional)</legend><div class="days">' +
           DAYS.map(function (d) {
             return chip('data-day="' + esc(d.key) + '"', '<span class="dow">' + d.dow + '</span><span class="md">' + d.md + '</span>', st.day === d.key);
           }).join('') + '</div></fieldset>';
-        h += '<fieldset><legend>Time window</legend><div class="chips wins">' +
+        h += '<fieldset><legend>Preferred time (optional)</legend><div class="chips wins">' +
           WINS.map(function (w) { return chip('data-win="' + w + '"', w, st.win === w); }).join('') +
           '</div></fieldset>';
       }
@@ -128,17 +129,17 @@
       h += '<div class="actions">' +
         (st.step > 1 ? '<button type="button" class="btn-back" data-act="back">Back</button>' : '') +
         '<button type="button" class="btn-next" data-act="next"' + (okNow() ? '' : ' disabled') + '>' +
-        (st.step === 3 ? 'Send request' : 'Continue') + '</button></div>';
+        (st.step === 3 ? 'Send inquiry' : 'Continue') + '</button></div>';
     } else {
       var smsHref = 'sms:' + PHONE + '?&body=' + encodeURIComponent(messageBody());
-      var mailHref = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('Booking request: ' + (svc() ? svc().label : '')) +
+      var mailHref = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('Service inquiry: ' + (svc() ? svc().label : '')) +
         '&body=' + encodeURIComponent(messageBody());
       h += '<div class="done" style="display:flex;flex-direction:column;gap:12px">' +
         '<span class="done-kicker">ALMOST DONE</span>' +
         '<h2>Hit send in Messages.</h2>' +
-        '<p>Your request is filled in and ready to text to Hafele. We text back within 24 hours.</p>' +
+        '<p>Your inquiry is filled in and ready to text to Hafele. We reply within 24 hours with availability and pricing.</p>' +
         '<p>Texting didn’t open? <a href="' + esc(smsHref) + '">Try again</a> or <a href="' + esc(mailHref) + '">send it by email</a>.</p>' +
-        '<button type="button" class="linkish" data-act="reset">Book something else</button>' +
+        '<button type="button" class="linkish" data-act="reset">Send another inquiry</button>' +
         '</div>';
     }
 
@@ -157,8 +158,8 @@
     if (!b || !root.contains(b)) return;
     if (b.dataset.svc) { st.svc = b.dataset.svc; st.freq = null; st.day = null; st.win = null; render(); return; }
     if (b.dataset.freq) { st.freq = b.dataset.freq; render(); return; }
-    if (b.dataset.day) { st.day = b.dataset.day; render(); return; }
-    if (b.dataset.win) { st.win = b.dataset.win; render(); return; }
+    if (b.dataset.day) { st.day = st.day === b.dataset.day ? null : b.dataset.day; render(); return; }
+    if (b.dataset.win) { st.win = st.win === b.dataset.win ? null : b.dataset.win; render(); return; }
     var act = b.dataset.act;
     if (act === 'back') { st.step = Math.max(1, st.step - 1); render(); }
     if (act === 'next' && okNow()) {
@@ -184,11 +185,11 @@
     refreshNext();
   });
 
-  // Services list: "Book" preselects the service in the booking box
+  // Services list: "Inquire" preselects the service in the inquiry box
   var list = document.getElementById('svc-list');
   list.innerHTML = SVCS.map(function (s, i) {
     return '<li class="svc-row"><span class="svc-num">' + String(i + 1).padStart(2, '0') + '</span>' +
-      '<h3>' + esc(s.label) + '</h3><a href="#book" data-pick="' + s.id + '">Book</a></li>';
+      '<h3>' + esc(s.label) + '</h3><a href="#book" data-pick="' + s.id + '">Inquire</a></li>';
   }).join('');
   list.addEventListener('click', function (e) {
     var a = e.target.closest('[data-pick]');
