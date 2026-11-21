@@ -11,7 +11,8 @@
     { id: 'maint', label: 'Landscape maintenance', ask: 'I need landscape maintenance',
       media: { img: 'assets/img/work-05.jpg', alt: 'Cape-style home with trimmed shrubs and a freshly mowed lawn' } },
     { id: 'seed', label: 'Seeding & hydroseeding', ask: 'I need seeding / hydroseeding', media: null },
-    { id: 'gutter', label: 'Gutters & siding', ask: 'I need my gutters or siding cleaned', media: null },
+    { id: 'gutter', label: 'Gutters & siding', ask: 'I need my gutters or siding cleaned',
+      media: { img: 'assets/img/gutters.jpg', alt: 'Freshly cleaned gutter running along a shingle roof' } },
     { id: 'snow', label: 'Snow plowing', ask: 'I need snow plowing', freq: ['Whole season', 'Per storm'], media: null },
     { id: 'other', label: 'Something else', ask: 'I have a job I need help with',
       media: { img: 'assets/img/sign.jpg', alt: 'Hafele yard sign on a freshly cut client lawn' } }
