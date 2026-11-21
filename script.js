@@ -13,7 +13,8 @@
     { id: 'seed', label: 'Seeding & hydroseeding', ask: 'I need seeding / hydroseeding', media: null },
     { id: 'gutter', label: 'Gutters & siding', ask: 'I need my gutters or siding cleaned',
       media: { img: 'assets/img/gutters.jpg', alt: 'Leaf blower clearing a gutter along the roof edge' } },
-    { id: 'snow', label: 'Snow plowing', ask: 'I need snow plowing', freq: ['Whole season', 'Per storm'], media: null },
+    { id: 'snow', label: 'Snow plowing', ask: 'I need snow plowing', freq: ['Whole season', 'Per storm'],
+      media: { img: 'assets/img/snow-plowing.jpg', alt: 'Hafele plow truck clearing a snowy driveway' } },
     { id: 'other', label: 'Something else', ask: 'I have a job I need help with',
       media: { img: 'assets/img/sign.jpg', alt: 'Hafele yard sign on a freshly cut client lawn' } }
   ];
