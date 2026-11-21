@@ -82,7 +82,7 @@
   function render() {
     var h = '';
     if (st.step !== 4) {
-      h += '<div class="glass-head"><h2>Book a visit</h2><span class="count">' + st.step + ' / 3</span></div>';
+      h += '<div class="glass-head"><h2>Book a visit</h2><span class="count">0' + st.step + ' / 03</span></div>';
       h += '<div class="bars" aria-hidden="true">' +
         [1, 2, 3].map(function (n) { return '<span class="' + (st.step >= n ? 'on' : '') + '"></span>'; }).join('') +
         '</div>';
@@ -187,8 +187,8 @@
   // Services list: "Book" preselects the service in the booking box
   var list = document.getElementById('svc-list');
   list.innerHTML = SVCS.map(function (s, i) {
-    return '<div class="svc-row"><span class="svc-num">' + String(i + 1).padStart(2, '0') + '</span>' +
-      '<h3>' + esc(s.label) + '</h3><a href="#book" data-pick="' + s.id + '">Book →</a></div>';
+    return '<li class="svc-row"><span class="svc-num">' + String(i + 1).padStart(2, '0') + '</span>' +
+      '<h3>' + esc(s.label) + '</h3><a href="#book" data-pick="' + s.id + '">Book</a></li>';
   }).join('');
   list.addEventListener('click', function (e) {
     var a = e.target.closest('[data-pick]');
