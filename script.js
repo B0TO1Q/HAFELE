@@ -4,13 +4,17 @@
   var PHONE = '+12035606079';
   var EMAIL = 'hafelelandscapingllc@gmail.com';
 
+  // media: a real Hafele job photo/video, or null for the logo panel (until photos are added)
   var SVCS = [
-    { id: 'mow', label: 'Lawn care & mowing', ask: 'I need my lawn mowed', freq: ['One-time', 'Weekly', 'Every 2 weeks'] },
-    { id: 'maint', label: 'Landscape maintenance', ask: 'I need landscape maintenance' },
-    { id: 'seed', label: 'Seeding & hydroseeding', ask: 'I need seeding / hydroseeding' },
-    { id: 'gutter', label: 'Gutters & siding', ask: 'I need my gutters or siding cleaned' },
-    { id: 'snow', label: 'Snow plowing', ask: 'I need snow plowing', freq: ['Whole season', 'Per storm'] },
-    { id: 'other', label: 'Something else', ask: 'I have a job I need help with' }
+    { id: 'mow', label: 'Lawn care & mowing', ask: 'I need my lawn mowed', freq: ['One-time', 'Weekly', 'Every 2 weeks'],
+      media: { img: 'assets/img/backyard-hillside.jpg', alt: 'Long striped backyard lawn climbing toward a gray house' } },
+    { id: 'maint', label: 'Landscape maintenance', ask: 'I need landscape maintenance',
+      media: { img: 'assets/img/work-05.jpg', alt: 'Cape-style home with trimmed shrubs and a freshly mowed lawn' } },
+    { id: 'seed', label: 'Seeding & hydroseeding', ask: 'I need seeding / hydroseeding', media: null },
+    { id: 'gutter', label: 'Gutters & siding', ask: 'I need my gutters or siding cleaned', media: null },
+    { id: 'snow', label: 'Snow plowing', ask: 'I need snow plowing', freq: ['Whole season', 'Per storm'], media: null },
+    { id: 'other', label: 'Something else', ask: 'I have a job I need help with',
+      media: { img: 'assets/img/sign.jpg', alt: 'Hafele yard sign on a freshly cut client lawn' } }
   ];
 
   var st = { step: 1, svc: null, freq: null, name: '', phone: '', addr: '', notes: '' };
@@ -142,11 +146,18 @@
     refreshNext();
   });
 
-  // Services list: "Get a price" preselects the service in the panel
+  // Services: one card per service, each with its own job photo as proof
+  function media(m) {
+    if (!m) return '<div class="svc-media svc-media-logo"><img src="assets/logo/emblem-gold.png" alt=""></div>';
+    if (m.video) return '<div class="svc-media"><video src="' + m.video + '" poster="' + m.poster + '" autoplay muted loop playsinline preload="metadata" aria-label="' + esc(m.alt) + '"></video></div>';
+    return '<div class="svc-media"><img src="' + m.img + '" alt="' + esc(m.alt) + '" loading="lazy"></div>';
+  }
   var list = document.getElementById('svc-list');
   list.innerHTML = SVCS.map(function (s, i) {
-    return '<li class="svc-row"><span class="svc-num">' + String(i + 1).padStart(2, '0') + '</span>' +
-      '<h3>' + esc(s.label) + '</h3><a href="#book" data-pick="' + s.id + '">Get a price</a></li>';
+    return '<li class="svc-card">' + media(s.media) +
+      '<div class="svc-meta"><span class="svc-num">' + String(i + 1).padStart(2, '0') + '</span>' +
+      '<h3>' + esc(s.label) + '</h3></div>' +
+      '<a class="svc-cta" href="#book" data-pick="' + s.id + '">Get a price</a></li>';
   }).join('');
   list.addEventListener('click', function (e) {
     var a = e.target.closest('[data-pick]');
