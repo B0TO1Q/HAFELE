@@ -400,3 +400,8 @@ html.hf-reveal .reveal.is-in { opacity: 1; transform: none; }
   .hero-img, .hero::before, .hero::after, .cta::before, .page-head::before, .footer::before { animation: none; }
   html.hf-reveal .reveal { opacity: 1; transform: none; transition: none; }
 }
+
+/* keep heading phrases together so lines break only after punctuation */
+.phr { white-space: nowrap; }
+@media (max-width: 420px) { .sec-title { font-size: min(32px, 7.4vw); } .page-title { font-size: min(34px, 9.4vw); } }
+@media (max-width: 300px) { .phr { white-space: normal; } }
