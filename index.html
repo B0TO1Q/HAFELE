@@ -122,6 +122,177 @@
   </div>
 </section>
 
+<!-- ============ START: Hafele Verse of the Day section ============ -->
+<style>
+  .hvotd {
+    /* Hafele brand values (styles.css: --green, --gold, --paper) */
+    --hvotd-green: #1D3326;
+    --hvotd-gold: #CBB373;
+    --hvotd-cream: #F6F2E6;
+    --hvotd-serif: "Iowan Old Style", Georgia, serif;
+
+    background: var(--hvotd-green);
+    color: var(--hvotd-cream);
+    padding: clamp(20px, 3vw, 30px) 20px;
+    border-top: 1px solid rgba(203, 179, 115, 0.35);
+    margin-top: 12px; /* cream gap so it doesn't merge with the green band above */
+  }
+  .hvotd__inner {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .hvotd__label {
+    margin: 0 0 8px;
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--hvotd-gold);
+  }
+  .hvotd__verse {
+    margin: 0;
+    font-family: var(--hvotd-serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(19px, 2.4vw, 25px);
+    line-height: 1.35;
+    text-wrap: balance;
+  }
+  .hvotd__foot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 8px;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--hvotd-gold);
+  }
+  .hvotd__foot::before {
+    content: "";
+    width: 28px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.6;
+  }
+  .hvotd__btn {
+    display: inline-grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--hvotd-cream);
+    opacity: 0.65;
+    cursor: pointer;
+    transition: opacity 0.2s, background 0.2s;
+  }
+  .hvotd__btn:hover,
+  .hvotd__btn:focus-visible {
+    opacity: 1;
+    background: rgba(203, 179, 115, 0.18);
+    outline: none;
+  }
+  .hvotd__btn svg { width: 15px; height: 15px; }
+  .hvotd__actions { display: flex; gap: 2px; }
+  .hvotd__status {
+    position: absolute;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  .hvotd__btn[data-done]::after {
+    content: "Copied";
+    position: absolute;
+    transform: translateY(26px);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--hvotd-gold);
+  }
+  @media (prefers-reduced-motion: reduce) { .hvotd__btn { transition: none; } }
+</style>
+
+<section class="hvotd" aria-labelledby="hvotd-label">
+  <div class="hvotd__inner">
+    <p class="hvotd__label" id="hvotd-label">Verse of the Day</p>
+    <blockquote class="hvotd__verse" id="hvotd-text"></blockquote>
+    <div class="hvotd__foot">
+      <span id="hvotd-ref"></span>
+      <div class="hvotd__actions">
+        <button class="hvotd__btn" type="button" id="hvotd-copy" aria-label="Copy verse">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="1.5"/><path d="M5 15V5.5A1.5 1.5 0 0 1 6.5 4H15"/></svg>
+        </button>
+        <button class="hvotd__btn" type="button" id="hvotd-share" aria-label="Share verse">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 15V3M7.5 7.5 12 3l4.5 4.5M5 12v7.5A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5V12"/></svg>
+        </button>
+      </div>
+    </div>
+    <p class="hvotd__status" id="hvotd-status" role="status" aria-live="polite"></p>
+  </div>
+</section>
+
+<script>
+(function () {
+  // Themed verses: seasons, the land, honest work, snow.
+  // NLT wording: double-check each against a Bible app before launch.
+  // Add more entries in the same format and the rotation picks them up.
+  var VERSES = [
+    { ref: "Genesis 8:22", text: "As long as the earth remains, there will be planting and harvest, cold and heat, summer and winter, day and night." },
+    { ref: "Colossians 3:23", text: "Work willingly at whatever you do, as though you were working for the Lord rather than for people." },
+    { ref: "Psalm 1:3", text: "They are like trees planted along the riverbank, bearing fruit each season. Their leaves never wither, and they prosper in all they do." },
+    { ref: "Ecclesiastes 3:1", text: "For everything there is a season, a time for every activity under heaven." },
+    { ref: "Galatians 6:9", text: "So let’s not get tired of doing what is good. At just the right time we will reap a harvest of blessing if we don’t give up." },
+    { ref: "Proverbs 14:23", text: "Work brings profit, but mere talk leads to poverty!" },
+    { ref: "Isaiah 1:18", text: "“Come now, let’s settle this,” says the LORD. “Though your sins are like scarlet, I will make them as white as snow.”" }
+  ];
+
+  var now = new Date();
+  var day = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000);
+  var v = VERSES[day % VERSES.length];
+  var $ = function (id) { return document.getElementById(id); };
+
+  $("hvotd-text").textContent = v.text;
+  $("hvotd-ref").textContent = v.ref + " · NLT";
+
+  var shareText = "“" + v.text + "” — " + v.ref + " (NLT)";
+  var copyBtn = $("hvotd-copy");
+
+  function done() {
+    $("hvotd-status").textContent = "Verse copied";
+    copyBtn.setAttribute("data-done", "");
+    clearTimeout(done.t);
+    done.t = setTimeout(function () {
+      copyBtn.removeAttribute("data-done");
+      $("hvotd-status").textContent = "";
+    }, 1800);
+  }
+  function copy() {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(shareText).then(done);
+    }
+    var ta = document.createElement("textarea");
+    ta.value = shareText;
+    ta.style.position = "absolute"; ta.style.left = "-9999px";
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); done(); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  copyBtn.addEventListener("click", copy);
+  $("hvotd-share").addEventListener("click", function () {
+    if (navigator.share) {
+      navigator.share({ title: "Verse of the Day", text: shareText, url: location.href }).catch(function () {});
+    } else {
+      copy();
+    }
+  });
+})();
+</script>
+<!-- ============ END: Hafele Verse of the Day section ============ -->
+
 </main>
 
 <footer class="footer">
