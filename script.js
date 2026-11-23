@@ -22,6 +22,7 @@
 
   var st = { step: 1, svc: null, freq: null, name: '', phone: '', addr: '', notes: '' };
   var root = document.getElementById('book');
+  var ANCHOR = { mow: 'mowing', maint: 'maintenance', seed: 'seeding', gutter: 'gutters', snow: 'snow', other: 'other' };
 
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
@@ -120,6 +121,12 @@
     if (btn) btn.disabled = !okNow();
   }
 
+  if (!root) return; // quote panel lives on the home page only
+
+  // Arriving from another page with ?service=… preselects that service
+  var pre = new URLSearchParams(window.location.search).get('service');
+  if (pre && SVCS.some(function (x) { return x.id === pre; })) st.svc = pre;
+
   root.addEventListener('click', function (e) {
     var b = e.target.closest('button');
     if (!b || !root.contains(b)) return;
@@ -157,11 +164,13 @@
     return '<div class="svc-media"><img src="' + m.img + '" alt="' + esc(m.alt) + '" loading="lazy"></div>';
   }
   var list = document.getElementById('svc-list');
+  if (list) {
   list.innerHTML = SVCS.map(function (s, i) {
     return '<li class="svc-card">' + media(s.media) +
       '<div class="svc-meta"><span class="svc-num">' + String(i + 1).padStart(2, '0') + '</span>' +
-      '<h3>' + esc(s.label) + '</h3></div>' +
-      '<a class="svc-cta" href="#book" data-pick="' + s.id + '">Request a quote</a></li>';
+      '<h3><a class="svc-title-link" href="services.html#' + ANCHOR[s.id] + '">' + esc(s.label) + '</a></h3></div>' +
+      '<div class="svc-links"><a class="svc-cta" href="#book" data-pick="' + s.id + '">Request a quote</a>' +
+      '<a class="svc-more" href="services.html#' + ANCHOR[s.id] + '">Details</a></div></li>';
   }).join('');
   list.addEventListener('click', function (e) {
     var a = e.target.closest('[data-pick]');
@@ -169,6 +178,7 @@
     st.svc = a.dataset.pick; st.freq = null; st.step = 1;
     render();
   });
+  }
 
   render();
 })();
