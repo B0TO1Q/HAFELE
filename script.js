@@ -15,10 +15,10 @@
         entries.forEach(function (en) {
           if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
         });
-      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+      }, { rootMargin: '0px 0px 12% 0px', threshold: 0 });
       Array.prototype.forEach.call(els, function (el) {
         var sib = el.parentElement ? Array.prototype.indexOf.call(el.parentElement.children, el) : 0;
-        el.style.transitionDelay = Math.min(sib, 4) * 70 + 'ms';
+        el.style.transitionDelay = Math.min(sib, 4) * 90 + 'ms';
         el.classList.add('reveal');
         io.observe(el);
       });
