@@ -332,3 +332,71 @@ h1, h2, h3, p { margin: 0; }
 @media (max-width: 1000px) { .mnav { display: block; } .nav { gap: 12px; } }
 @media (max-width: 720px) { .nav .dnav-phone { padding: 0 12px; } }
 @media (max-width: 480px) { .brand-word { display: none; } .brand-emblem { height: 38px; } }
+
+/* ================================================================
+   Ambient light: slow sunlight + fog on the hero photo, a warm glow
+   on the green bands, and a soft fade-up as sections scroll in.
+   Transforms and opacity only (no layout shift); all motion is off
+   for visitors who ask their device to reduce motion.
+   ================================================================ */
+
+/* hero layering: photo < shade < light & fog < content */
+.hero-img { z-index: 0; animation: hf-breathe 48s ease-in-out infinite alternate; transform-origin: 60% 40%; will-change: transform; }
+.hero-shade { z-index: 1; }
+.hero-in { z-index: 3; }
+.hero::before, .hero::after { content: ""; position: absolute; pointer-events: none; z-index: 2; }
+
+/* low sun from the upper right, drifting and breathing */
+.hero::before {
+  inset: -25%;
+  background:
+    radial-gradient(38% 32% at 72% 18%, rgba(255, 236, 196, 0.42), rgba(255, 236, 196, 0) 70%),
+    radial-gradient(60% 50% at 85% 0%, rgba(255, 214, 150, 0.18), rgba(255, 214, 150, 0) 70%);
+  mix-blend-mode: screen;
+  animation: hf-sun 26s ease-in-out infinite alternate;
+}
+
+/* ground fog along the lawn line, drifting sideways */
+.hero::after {
+  left: -20%; right: -20%; bottom: -6%; height: 46%;
+  background:
+    radial-gradient(40% 55% at 22% 70%, rgba(246, 242, 230, 0.22), rgba(246, 242, 230, 0) 72%),
+    radial-gradient(45% 60% at 62% 80%, rgba(246, 242, 230, 0.18), rgba(246, 242, 230, 0) 72%),
+    radial-gradient(35% 50% at 92% 65%, rgba(246, 242, 230, 0.14), rgba(246, 242, 230, 0) 72%);
+  filter: blur(18px);
+  animation: hf-fog 70s ease-in-out infinite alternate;
+}
+
+@keyframes hf-breathe { from { transform: scale(1); } to { transform: scale(1.035); } }
+@keyframes hf-sun {
+  0%   { transform: translate3d(0, 0, 0); opacity: 0.85; }
+  50%  { transform: translate3d(-3%, 2%, 0); opacity: 1; }
+  100% { transform: translate3d(-6%, 1%, 0); opacity: 0.8; }
+}
+@keyframes hf-fog {
+  0%   { transform: translate3d(-6%, 0, 0); opacity: 0.75; }
+  50%  { transform: translate3d(2%, -2%, 0); opacity: 1; }
+  100% { transform: translate3d(8%, 0, 0); opacity: 0.8; }
+}
+
+/* warm glow on the dark green bands */
+.cta, .page-head, .footer { position: relative; overflow: hidden; isolation: isolate; }
+.cta::before, .page-head::before, .footer::before {
+  content: ""; position: absolute; inset: -40%; z-index: -1; pointer-events: none;
+  background: radial-gradient(30% 45% at 78% 40%, rgba(203, 179, 115, 0.13), rgba(203, 179, 115, 0) 70%);
+  animation: hf-glow 34s ease-in-out infinite alternate;
+}
+.footer::before { background: radial-gradient(28% 40% at 18% 30%, rgba(203, 179, 115, 0.08), rgba(203, 179, 115, 0) 70%); animation-duration: 42s; }
+@keyframes hf-glow {
+  from { transform: translate3d(4%, -2%, 0); opacity: 0.7; }
+  to   { transform: translate3d(-6%, 3%, 0); opacity: 1; }
+}
+
+/* fade-up on scroll (only when the script turns it on) */
+html.hf-reveal .reveal { opacity: 0; transform: translate3d(0, 16px, 0); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(.2,.7,.2,1); }
+html.hf-reveal .reveal.is-in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-img, .hero::before, .hero::after, .cta::before, .page-head::before, .footer::before { animation: none; }
+  html.hf-reveal .reveal { opacity: 1; transform: none; transition: none; }
+}

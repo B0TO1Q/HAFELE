@@ -1,6 +1,31 @@
 (function () {
   'use strict';
 
+  // Soft fade-up as content scrolls into view (all pages).
+  // Skipped when the visitor prefers reduced motion or the browser lacks support.
+  (function reveal() {
+    if (!('IntersectionObserver' in window)) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var sel = '.fact, .sec-head, .svc-card, .svc-row, .faq-intro, .faq-list, .about-copy, .about-media, .contact-card, .area-label, .area-towns, .cta-in, .footer-grid';
+    function arm() {
+      var els = document.querySelectorAll(sel);
+      if (!els.length) return;
+      document.documentElement.classList.add('hf-reveal');
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+      Array.prototype.forEach.call(els, function (el) {
+        var sib = el.parentElement ? Array.prototype.indexOf.call(el.parentElement.children, el) : 0;
+        el.style.transitionDelay = Math.min(sib, 4) * 70 + 'ms';
+        el.classList.add('reveal');
+        io.observe(el);
+      });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', arm); else arm();
+  })();
+
   var PHONE = '+12035606079';
   var EMAIL = 'hafelelandscapingllc@gmail.com';
 
