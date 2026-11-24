@@ -213,7 +213,7 @@ h1, h2, h3, p { margin: 0; }
 /* phones and small tablets held sideways: short screens */
 @media (orientation: landscape) and (max-height: 540px) {
   :root { --sp-section: 48px; --sp-band: 24px; }
-  .topbar { position: static; }
+  .topbar { position: relative; }
   .topbar-in { min-height: 60px; }
   .hero { min-height: 0; }
   .hero-in { align-items: flex-start; gap: 32px; }
@@ -414,3 +414,8 @@ html.hf-reveal .reveal.is-in { opacity: 1; transform: none; }
 .footer-logo, .fcol { grid-column: span 4; }
 @media (max-width: 1000px) { .footer-logo { grid-column: 1 / -1; } .fcol, .fcol:last-child { grid-column: span 6; } }
 @media (max-width: 720px) { .fcol, .fcol:last-child { grid-column: 1 / -1; } }
+
+/* Menu always sits above the page: the header is its own top layer, and the
+   hero (animated photo, glass quote panel) is boxed into its own layer below it. */
+.topbar { z-index: 50; }
+.hero { isolation: isolate; z-index: 0; }
