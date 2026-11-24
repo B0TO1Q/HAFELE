@@ -405,3 +405,7 @@ html.hf-reveal .reveal.is-in { opacity: 1; transform: none; }
 .phr { white-space: nowrap; }
 @media (max-width: 420px) { .sec-title { font-size: min(32px, 7.4vw); } .page-title { font-size: min(34px, 9.4vw); } }
 @media (max-width: 300px) { .phr { white-space: normal; } }
+
+/* The facts band already closes with a rule, so the section after it
+   doesn't need a full section gap on top. */
+.facts + .section { padding-top: calc(var(--sp-section) * 0.6); }
