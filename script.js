@@ -89,7 +89,21 @@
       media: { img: 'assets/img/sign.jpg', alt: 'Hafele yard sign on a freshly cut client lawn' } }
   ];
 
-  var st = { step: 1, svc: null, freq: null, name: '', phone: '', addr: '', notes: '' };
+  // Seasons (season.js): each season offers only the services that make sense then
+  var SEA = window.HF_SEASON || { now: 'all', order: ['all'], all: { all: { label: 'All', picks: SVCS.map(function (x) { return { svc: x.id }; }) } } };
+  function picks(season) { return SEA.all[season].picks; }
+  function inSeason(season, id) { return picks(season).some(function (p) { return p.svc === id; }); }
+  // the season to open for a service: now if offered now, otherwise the next season that offers it
+  function seasonFor(id) {
+    var i0 = SEA.order.indexOf(SEA.now);
+    for (var k = 0; k < SEA.order.length; k++) {
+      var sea = SEA.order[(i0 + k) % SEA.order.length];
+      if (inSeason(sea, id)) return sea;
+    }
+    return SEA.now;
+  }
+
+  var st = { step: 1, season: SEA.now, svc: null, freq: null, name: '', phone: '', addr: '', notes: '' };
   var root = document.getElementById('book');
   var ANCHOR = { mow: 'mowing', maint: 'maintenance', seed: 'seeding', gutter: 'gutters', snow: 'snow', other: 'other' };
 
@@ -99,7 +113,13 @@
     });
   }
 
-  function svc() { return SVCS.filter(function (s) { return s.id === st.svc; })[0] || null; }
+  function svc() {
+    var base = SVCS.filter(function (s) { return s.id === st.svc; })[0];
+    if (!base) return null;
+    var p = picks(st.season).filter(function (x) { return x.svc === st.svc; })[0] || {};
+    return { id: base.id, label: p.label || base.label, ask: p.ask || base.ask, freq: p.freq || base.freq, media: base.media };
+  }
+  function pick(id) { st.season = seasonFor(id); st.svc = id; st.freq = null; st.step = 1; }
 
   function okNow() {
     var s = svc();
@@ -141,8 +161,18 @@
     }
 
     if (st.step === 1) {
+      if (SEA.order.length > 1) {
+        h += '<div class="seasons" role="tablist" aria-label="Season">' +
+          SEA.order.map(function (sea) {
+            return '<button type="button" role="tab" class="season-tab" data-season="' + sea + '" aria-selected="' + (st.season === sea) + '">' +
+              esc(SEA.all[sea].label) + (sea === SEA.now ? '<span class="season-now" aria-label="(now)"></span>' : '') + '</button>';
+          }).join('') + '</div>';
+      }
       h += '<fieldset><legend>What do you need?</legend><div class="chips">' +
-        SVCS.map(function (s) { return chip('data-svc="' + s.id + '"', esc(s.label), st.svc === s.id); }).join('') +
+        picks(st.season).map(function (p) {
+          var base = SVCS.filter(function (x) { return x.id === p.svc; })[0];
+          return chip('data-svc="' + p.svc + '"', esc(p.label || base.label), st.svc === p.svc);
+        }).join('') +
         '</div></fieldset>';
       var s = svc();
       if (s && s.freq) {
@@ -194,11 +224,12 @@
 
   // Arriving from another page with ?service=… preselects that service
   var pre = new URLSearchParams(window.location.search).get('service');
-  if (pre && SVCS.some(function (x) { return x.id === pre; })) st.svc = pre;
+  if (pre && SVCS.some(function (x) { return x.id === pre; })) pick(pre);
 
   root.addEventListener('click', function (e) {
     var b = e.target.closest('button');
     if (!b || !root.contains(b)) return;
+    if (b.dataset.season) { if (b.dataset.season !== st.season) { st.season = b.dataset.season; st.svc = null; st.freq = null; } render(); var t = root.querySelector('.season-tab[aria-selected="true"]'); if (t) t.focus(); return; }
     if (b.dataset.svc) { st.svc = b.dataset.svc; st.freq = null; render(); return; }
     if (b.dataset.freq) { st.freq = b.dataset.freq; render(); return; }
     var act = b.dataset.act;
@@ -214,7 +245,7 @@
       }
     }
     if (act === 'reset') {
-      st = { step: 1, svc: null, freq: null, name: st.name, phone: st.phone, addr: st.addr, notes: '' };
+      st = { step: 1, season: SEA.now, svc: null, freq: null, name: st.name, phone: st.phone, addr: st.addr, notes: '' };
       render();
     }
   });
@@ -234,7 +265,14 @@
   }
   var list = document.getElementById('svc-list');
   if (list) {
-  list.innerHTML = SVCS.map(function (s, i) {
+  // in-season services first, in the season's order; the rest after
+  var nowIds = picks(SEA.now).map(function (p) { return p.svc; });
+  var ordered = SVCS.slice().sort(function (a, b) {
+    var ia = nowIds.indexOf(a.id), ib = nowIds.indexOf(b.id);
+    if (a.id === 'other') ia = 99; if (b.id === 'other') ib = 99;
+    return (ia < 0 ? 50 + SVCS.indexOf(a) : ia) - (ib < 0 ? 50 + SVCS.indexOf(b) : ib);
+  });
+  list.innerHTML = ordered.map(function (s, i) {
     return '<li class="svc-card">' + media(s.media) +
       '<div class="svc-meta"><span class="svc-num">' + String(i + 1).padStart(2, '0') + '</span>' +
       '<h3><a class="svc-title-link" href="services.html#' + ANCHOR[s.id] + '">' + esc(s.label) + '</a></h3></div>' +
@@ -244,7 +282,7 @@
   list.addEventListener('click', function (e) {
     var a = e.target.closest('[data-pick]');
     if (!a) return;
-    st.svc = a.dataset.pick; st.freq = null; st.step = 1;
+    pick(a.dataset.pick);
     render();
   });
   }
