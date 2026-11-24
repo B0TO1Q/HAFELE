@@ -1,6 +1,50 @@
 (function () {
   'use strict';
 
+  // Same treatment as the Dani Hamm site (DANIHAMM/js/main.js).
+  // ---------- smooth wheel scrolling (mouse & trackpad only) ----------
+  // Glides to each stop and travels a little less per notch, so the page
+  // feels slower and more fluid. Touch scrolling stays native.
+  function initSmoothScroll() {
+    var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!fine || calm) return;
+    var SPEED = 0.8;   // distance per wheel notch (1 = normal)
+    var EASE = 0.1;    // glide amount per frame (lower = smoother, slower)
+    var target = window.scrollY, current = window.scrollY, running = false;
+    function maxY() { return document.documentElement.scrollHeight - window.innerHeight; }
+    function scrollsItself(el, dy) {
+      for (; el && el !== document.body; el = el.parentElement) {
+        var st = getComputedStyle(el), oy = st.overflowY;
+        if ((oy === 'auto' || oy === 'scroll') && el.scrollHeight > el.clientHeight) {
+          if ((dy < 0 && el.scrollTop > 0) || (dy > 0 && el.scrollTop + el.clientHeight < el.scrollHeight)) return true;
+        }
+      }
+      return false;
+    }
+    function step() {
+      current += (target - current) * EASE;
+      if (Math.abs(target - current) < 0.5) { current = target; running = false; }
+      window.scrollTo({ top: current, behavior: 'instant' });
+      if (running) requestAnimationFrame(step);
+    }
+    window.addEventListener('wheel', function (e) {
+      if (e.ctrlKey || Math.abs(e.deltaX) > Math.abs(e.deltaY) || scrollsItself(e.target, e.deltaY)) return;
+      e.preventDefault();
+      if (!running) { current = window.scrollY; target = current; }
+      var dy = e.deltaMode === 1 ? e.deltaY * 40 : e.deltaMode === 2 ? e.deltaY * window.innerHeight : e.deltaY;
+      target = Math.max(0, Math.min(maxY(), target + dy * SPEED));
+      if (!running) { running = true; requestAnimationFrame(step); }
+    }, { passive: false });
+    // keyboard, scrollbar, anchor jumps: follow wherever the page actually is
+    window.addEventListener('scroll', function () {
+      // if something else moved the page (keys, scrollbar, links), stop gliding and follow it
+      if (!running || Math.abs(window.scrollY - current) > 3) { running = false; current = target = window.scrollY; }
+    }, { passive: true });
+    window.addEventListener('resize', function () { target = Math.min(target, maxY()); });
+  }
+  initSmoothScroll();
+
   // Soft fade-up as content scrolls into view (all pages).
   // Skipped when the visitor prefers reduced motion or the browser lacks support.
   (function reveal() {
