@@ -409,3 +409,8 @@ html.hf-reveal .reveal.is-in { opacity: 1; transform: none; }
 /* The facts band already closes with a rule, so the section after it
    doesn't need a full section gap on top. */
 .facts + .section { padding-top: calc(var(--sp-section) * 0.6); }
+
+/* Footer has two text columns (Contact, Payment) now that the address is off. */
+.footer-logo, .fcol { grid-column: span 4; }
+@media (max-width: 1000px) { .footer-logo { grid-column: 1 / -1; } .fcol, .fcol:last-child { grid-column: span 6; } }
+@media (max-width: 720px) { .fcol, .fcol:last-child { grid-column: 1 / -1; } }
