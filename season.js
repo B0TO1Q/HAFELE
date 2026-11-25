@@ -18,6 +18,7 @@
         { svc: 'mow' },
         { svc: 'seed' },
         { svc: 'gutter' },
+        { svc: 'care' },
         { svc: 'other' }
       ]
     },
@@ -26,6 +27,7 @@
       picks: [
         { svc: 'mow' },
         { svc: 'maint' },
+        { svc: 'care' },
         { svc: 'other' }
       ]
     },
@@ -36,6 +38,7 @@
         { svc: 'seed', label: 'Fall seeding', ask: 'I need fall seeding / hydroseeding' },
         { svc: 'gutter' },
         { svc: 'snow', label: 'Reserve winter plowing', ask: 'I’d like to reserve snow plowing for this winter' },
+        { svc: 'care' },
         { svc: 'other' }
       ]
     },
@@ -44,6 +47,7 @@
       picks: [
         { svc: 'snow' },
         { svc: 'mow', label: 'Reserve spring mowing', ask: 'I’d like to get on your spring mowing list', freq: ['Weekly', 'Every 2 weeks'] },
+        { svc: 'care' },
         { svc: 'other' }
       ]
     }

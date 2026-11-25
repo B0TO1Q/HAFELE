@@ -453,3 +453,34 @@ html[data-tone="winter"] .hero-shade { background-color: rgba(16, 34, 26, 0.38);
 /* bottom bar: room for "Get an estimate" on the narrowest phones */
 .mbar a { white-space: nowrap; }
 @media (max-width: 380px) { .mbar a { font-size: 14px; } .mbar a.mbar-book { flex: 1.8; } }
+
+/* ================================================================
+   Four-Season Care: the annual agreement, featured on Home and Services
+   ================================================================ */
+.care { background: var(--green-deep); color: var(--paper); position: relative; overflow: hidden; isolation: isolate; scroll-margin-top: 72px; }
+.care::before {
+  content: ""; position: absolute; inset: -40%; z-index: -1; pointer-events: none;
+  background: radial-gradient(30% 45% at 22% 40%, rgba(203, 179, 115, 0.12), rgba(203, 179, 115, 0) 70%);
+  animation: hf-glow 38s ease-in-out infinite alternate;
+}
+.care-in { padding-top: var(--sp-section); padding-bottom: var(--sp-section); row-gap: 48px; align-items: start; }
+.care-intro { grid-column: 1 / span 5; display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
+.care-eyebrow { color: var(--gold); }
+.care-title { font-family: var(--display); font-weight: 600; font-size: clamp(32px, 3.6vw, 52px); letter-spacing: -0.025em; line-height: 1.05; }
+.care-lead { font-size: 18px; line-height: 1.55; color: rgba(246,242,230,0.82); max-width: 34em; }
+.care-intro .btn { margin-top: 8px; }
+.care-seasons { grid-column: 7 / span 6; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: 36px; margin: 0; }
+.care-season { border-top: 1px solid var(--gold); padding-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+.care-season dt { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+.care-season dd { margin: 0; font-size: 16px; color: rgba(246,242,230,0.9); }
+@media (max-width: 1000px) {
+  .care-intro, .care-seasons { grid-column: 1 / -1; }
+}
+@media (max-width: 420px) {
+  .care-seasons { row-gap: 28px; }
+  .care-lead { font-size: 17px; }
+}
+@media (prefers-reduced-motion: reduce) { .care::before { animation: none; } }
+
+/* jumping to the estimate form never tucks it under the header */
+#book { scroll-margin-top: 96px; }

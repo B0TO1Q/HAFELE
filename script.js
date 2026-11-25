@@ -50,7 +50,7 @@
   (function reveal() {
     if (!('IntersectionObserver' in window)) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var sel = '.fact, .sec-head, .svc-card, .svc-row, .faq-intro, .faq-list, .about-copy, .about-media, .contact-card, .area-label, .area-towns, .cta-in, .footer-grid';
+    var sel = '.fact, .sec-head, .svc-card, .svc-row, .faq-intro, .faq-list, .about-copy, .about-media, .contact-card, .area-label, .area-towns, .cta-in, .footer-grid, .care-intro, .care-season';
     function arm() {
       var els = document.querySelectorAll(sel);
       if (!els.length) return;
@@ -85,6 +85,7 @@
       media: { img: 'assets/img/gutters.jpg', alt: 'Leaf blower clearing a gutter along the roof edge' } },
     { id: 'snow', label: 'Snow plowing', ask: 'I need snow plowing', freq: ['Whole season', 'Per storm'],
       media: { img: 'assets/img/snow-plowing.jpg', alt: 'Hafele plow truck clearing a snowy driveway' } },
+    { id: 'care', label: 'Four-Season Care', ask: 'I\u2019m interested in Four-Season Care for my property, all year', featured: true },
     { id: 'other', label: 'Something else', ask: 'I have a job I need help with',
       media: { img: 'assets/img/sign.jpg', alt: 'Hafele yard sign on a freshly cut client lawn' } }
   ];
@@ -105,7 +106,7 @@
 
   var st = { step: 1, season: SEA.now, svc: null, freq: null, name: '', phone: '', addr: '', notes: '' };
   var root = document.getElementById('book');
-  var ANCHOR = { mow: 'mowing', maint: 'maintenance', seed: 'seeding', gutter: 'gutters', snow: 'snow', other: 'other' };
+  var ANCHOR = { care: 'care', mow: 'mowing', maint: 'maintenance', seed: 'seeding', gutter: 'gutters', snow: 'snow', other: 'other' };
 
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
@@ -137,7 +138,7 @@
   function messageBody() {
     var s = svc();
     var lines = [
-      'Hi Hafele, ' + (s ? s.ask.charAt(0).toLowerCase() + s.ask.slice(1) : 'I have a job') +
+      'Hi Hafele, ' + (s ? (/^I[\s\u2019']/.test(s.ask) ? s.ask : s.ask.charAt(0).toLowerCase() + s.ask.slice(1)) : 'I have a job') +
         (s && s.freq && st.freq ? ' (' + st.freq.toLowerCase() + ')' : '') +
         '. Could you give me an estimate? I\'m sending photos of the property (lawn / driveway) with this message.',
       '',
@@ -266,20 +267,23 @@
   }
   var list = document.getElementById('svc-list');
   if (list) {
-  list.innerHTML = SVCS.map(function (s, i) {
+  list.innerHTML = SVCS.filter(function (s) { return !s.featured; }).map(function (s, i) {
     return '<li class="svc-card">' + media(s.media) +
       '<div class="svc-meta"><span class="svc-num">' + String(i + 1).padStart(2, '0') + '</span>' +
       '<h3><a class="svc-title-link" href="services.html#' + ANCHOR[s.id] + '">' + esc(s.label) + '</a></h3></div>' +
       '<div class="svc-links"><a class="svc-cta" href="#book" data-pick="' + s.id + '">Request an estimate</a>' +
       '<a class="svc-more" href="services.html#' + ANCHOR[s.id] + '">Details</a></div></li>';
   }).join('');
-  list.addEventListener('click', function (e) {
+
+  }
+
+  // Any "Request an estimate" link with data-pick preselects that service
+  document.addEventListener('click', function (e) {
     var a = e.target.closest('[data-pick]');
     if (!a) return;
     pick(a.dataset.pick);
     render();
   });
-  }
 
   render();
 
