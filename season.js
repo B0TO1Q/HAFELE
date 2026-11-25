@@ -14,7 +14,7 @@
     spring: {
       label: 'Spring',
       line: 'Spring cleanups and mowing, booking now.',
-      hero: { img: 'assets/img/work-07.jpg', pos: '50% 60%', alt: 'Freshly striped lawn under a clear blue sky' },
+      hero: { img: 'assets/img/hydroseeding.jpg', pos: '50% 50%', alt: 'Fresh green hydroseed mulch spread over a lawn' },
       picks: [
         { svc: 'maint', label: 'Spring cleanup', ask: 'I need a spring cleanup' },
         { svc: 'mow' },
@@ -36,7 +36,7 @@
     fall: {
       label: 'Fall',
       line: 'Fall cleanups now. Reserve your winter plowing.',
-      hero: { img: 'assets/img/work-06.jpg', pos: '50% 55%', alt: 'Striped lawn framed by orange fall trees' },
+      hero: { img: 'assets/img/gutters.jpg', pos: '50% 50%', alt: 'Leaf blower clearing a gutter along the roof edge' },
       picks: [
         { svc: 'maint', label: 'Fall cleanup', ask: 'I need a fall cleanup' },
         { svc: 'seed', label: 'Fall seeding', ask: 'I need fall seeding / hydroseeding' },
