@@ -420,16 +420,7 @@ html.hf-reveal .reveal.is-in { opacity: 1; transform: none; }
 .topbar { z-index: 50; }
 .hero { isolation: isolate; z-index: 0; }
 
-/* ================================================================
-   Seasons (season.js sets html[data-season]). The brand never changes;
-   only the hero photo, the light and the quote options do.
-   Summer is the base look above.
-   ================================================================ */
-
-/* seasonal line under the tagline */
-.season-line { font-size: 15px; font-weight: 500; color: rgba(255,255,255,0.92); letter-spacing: 0.01em; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.4); align-self: flex-start; }
-.season-line:empty { display: none; }
-
+/* Seasons: tabs on the quote panel (season.js) */
 /* season tabs in the quote panel */
 .seasons { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid rgba(255,255,255,0.5); border-radius: 2px; }
 .season-tab { position: relative; min-height: 40px; padding: 8px 4px; background: transparent; color: rgba(255,255,255,0.86); border: 0; border-left: 1px solid rgba(255,255,255,0.35); font: inherit; font-size: 14px; font-weight: 500; cursor: pointer; text-shadow: 0 1px 3px rgba(0,0,0,0.6); transition: background .15s, color .15s; }
@@ -438,46 +429,6 @@ html.hf-reveal .reveal.is-in { opacity: 1; transform: none; }
 .season-tab[aria-selected="true"] { background: var(--paper); color: var(--ink); font-weight: 600; text-shadow: none; }
 .season-tab:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
 .season-now { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); margin-left: 6px; vertical-align: 2px; }
-
-/* Spring: clear, fresh morning light */
-html[data-season="spring"] .hero::before {
-  background:
-    radial-gradient(38% 32% at 72% 18%, rgba(244, 250, 226, 0.40), rgba(244, 250, 226, 0) 70%),
-    radial-gradient(60% 50% at 85% 0%, rgba(230, 244, 200, 0.16), rgba(230, 244, 200, 0) 70%);
-}
-html[data-season="spring"] .hero-shade { background: rgba(14, 26, 18, 0.26); }
-
-/* Fall: low amber sun, a little more haze */
-html[data-season="fall"] .hero::before {
-  background:
-    radial-gradient(40% 34% at 74% 20%, rgba(255, 206, 140, 0.42), rgba(255, 206, 140, 0) 70%),
-    radial-gradient(60% 50% at 88% 2%, rgba(240, 160, 90, 0.20), rgba(240, 160, 90, 0) 70%);
-}
-html[data-season="fall"] .hero::after { opacity: 1; filter: blur(20px); }
-html[data-season="fall"] .cta::before, html[data-season="fall"] .page-head::before {
-  background: radial-gradient(30% 45% at 78% 40%, rgba(214, 160, 90, 0.15), rgba(214, 160, 90, 0) 70%);
-}
-
-/* Winter: pale, cool light and a colder, heavier mist */
-html[data-season="winter"] .hero::before {
-  background:
-    radial-gradient(38% 32% at 72% 16%, rgba(232, 240, 248, 0.34), rgba(232, 240, 248, 0) 70%),
-    radial-gradient(60% 50% at 85% 0%, rgba(210, 224, 238, 0.16), rgba(210, 224, 238, 0) 70%);
-}
-html[data-season="winter"] .hero::after {
-  background:
-    radial-gradient(40% 55% at 22% 70%, rgba(240, 245, 250, 0.28), rgba(240, 245, 250, 0) 72%),
-    radial-gradient(45% 60% at 62% 80%, rgba(240, 245, 250, 0.22), rgba(240, 245, 250, 0) 72%),
-    radial-gradient(35% 50% at 92% 65%, rgba(240, 245, 250, 0.18), rgba(240, 245, 250, 0) 72%);
-}
-html[data-season="winter"] .hero-shade { background: rgba(12, 22, 26, 0.36); }
-html[data-season="winter"] .cta::before, html[data-season="winter"] .page-head::before {
-  background: radial-gradient(30% 45% at 78% 40%, rgba(214, 226, 236, 0.10), rgba(214, 226, 236, 0) 70%);
-}
-
-/* season switch: quick cross-fade of the hero photo */
-.hero-img { transition: opacity .25s ease; }
-.hero-img.is-swapping { opacity: 0; }
 
 /* quote buttons: one even size, and a lone last button spans the row */
 .chips { grid-auto-rows: minmax(52px, auto); }
