@@ -435,3 +435,14 @@ html.hf-reveal .reveal.is-in { opacity: 1; transform: none; }
 .chips .chip { min-height: 52px; }
 .chips .chip:last-child:nth-child(odd) { grid-column: 1 / -1; }
 .season-tab { min-height: 44px; display: flex; align-items: center; justify-content: center; }
+
+/* Season tone on the hero photo: bright spring, vibrant summer,
+   faded fall, near black-and-white winter. Fades when the tab changes. */
+.hero-img, .hero-shade { transition: filter 1.4s ease, background-color 1.4s ease; }
+html[data-tone="spring"] .hero-img { filter: brightness(1.08) saturate(1.05) contrast(0.96); }
+html[data-tone="summer"] .hero-img { filter: saturate(1.25) contrast(1.05); }
+html[data-tone="fall"]   .hero-img { filter: saturate(0.62) sepia(0.18) contrast(1.02); }
+html[data-tone="winter"] .hero-img { filter: grayscale(0.9) brightness(0.96) contrast(1.06); }
+html[data-tone="spring"] .hero-shade { background-color: rgba(14, 26, 18, 0.24); }
+html[data-tone="winter"] .hero-shade { background-color: rgba(16, 34, 26, 0.38); }
+@media (prefers-reduced-motion: reduce) { .hero-img, .hero-shade { transition: none; } }

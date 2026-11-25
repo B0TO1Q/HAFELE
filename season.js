@@ -60,6 +60,8 @@
   try { forced = new URLSearchParams(window.location.search).get('season'); } catch (e) {}
   var now = SEASONS[forced] ? forced : fromDate(new Date());
 
+  document.documentElement.setAttribute('data-tone', now);
+
   window.HF_SEASON = {
     now: now,
     order: ['spring', 'summer', 'fall', 'winter'],
