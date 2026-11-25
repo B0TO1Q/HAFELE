@@ -76,7 +76,7 @@
   // media: a real Hafele job photo/video, or null for the logo panel (until photos are added)
   var SVCS = [
     { id: 'mow', label: 'Lawn & Turf Care', ask: 'I need my lawn mowed', freq: ['One-Time', 'Weekly', 'Every 2 Weeks'],
-      media: { img: 'assets/img/lawn-stripes.jpg?v=2', alt: 'Lawn mowed in bold diagonal stripes below a sunlit rise' } },
+      media: { img: 'assets/img/lawn-stripes.jpg?v=3', alt: 'Lawn mowed in bold diagonal stripes below a sunlit rise' } },
     { id: 'maint', label: 'Grounds Maintenance', ask: 'I need landscape maintenance',
       media: { img: 'assets/img/work-05.jpg', alt: 'Cape-style home with trimmed shrubs and a freshly mowed lawn' } },
     { id: 'seed', label: 'Lawn Renovation', ask: 'I need seeding / hydroseeding',
