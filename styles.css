@@ -494,3 +494,12 @@ html[data-tone="winter"] .hero-shade { background-color: rgba(16, 34, 26, 0.38);
 @media (prefers-reduced-motion: reduce) { .care-media img, .care-media video { transition: none; } }
 
 @media (min-width: 1001px) { .care-intro { position: sticky; top: 120px; } }
+
+/* Four-Season Care: its own full-width tab under the four seasons */
+.season-tab.care-tab { grid-column: 1 / -1; border-left: 0; border-top: 1px solid rgba(255,255,255,0.35); min-height: 48px; gap: 10px; }
+.care-tab-sub { font-size: 12px; font-weight: 500; letter-spacing: 0.04em; opacity: 0.75; }
+.care-tab-sub::before { content: "·"; margin-right: 10px; }
+.season-tab.care-tab[aria-selected="true"] { background: var(--gold); color: var(--green-deep); }
+.care-note { font-size: 15px; line-height: 1.55; padding: 14px 0; border-top: 1px solid rgba(255,255,255,0.35); border-bottom: 1px solid rgba(255,255,255,0.35); }
+.season-tab.care-tab { white-space: nowrap; }
+@media (max-width: 420px) { .care-tab-sub { display: none; } }

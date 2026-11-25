@@ -18,7 +18,6 @@
         { svc: 'mow' },
         { svc: 'seed' },
         { svc: 'gutter' },
-        { svc: 'care' },
         { svc: 'other' }
       ]
     },
@@ -27,7 +26,6 @@
       picks: [
         { svc: 'mow' },
         { svc: 'maint' },
-        { svc: 'care' },
         { svc: 'other' }
       ]
     },
@@ -38,16 +36,19 @@
         { svc: 'seed', label: 'Aeration & overseeding', ask: 'I need aeration and overseeding' },
         { svc: 'gutter' },
         { svc: 'snow', label: 'Reserve snow removal', ask: 'I’d like to reserve snow plowing for this winter' },
-        { svc: 'care' },
         { svc: 'other' }
       ]
+    },
+    // Its own tab under the four seasons
+    care: {
+      label: 'Four-Season Care',
+      picks: [{ svc: 'care' }]
     },
     winter: {
       label: 'Winter',
       picks: [
         { svc: 'snow' },
         { svc: 'mow', label: 'Reserve spring mowing', ask: 'I’d like to get on your spring mowing list', freq: ['Weekly', 'Every 2 weeks'] },
-        { svc: 'care' },
         { svc: 'other' }
       ]
     }

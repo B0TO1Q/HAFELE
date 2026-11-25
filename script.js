@@ -96,6 +96,7 @@
   function inSeason(season, id) { return picks(season).some(function (p) { return p.svc === id; }); }
   // the season to open for a service: now if offered now, otherwise the next season that offers it
   function seasonFor(id) {
+    if (id === 'care' && SEA.all.care) return 'care';
     var i0 = SEA.order.indexOf(SEA.now);
     for (var k = 0; k < SEA.order.length; k++) {
       var sea = SEA.order[(i0 + k) % SEA.order.length];
@@ -167,8 +168,13 @@
           SEA.order.map(function (sea) {
             return '<button type="button" role="tab" class="season-tab" data-season="' + sea + '" aria-selected="' + (st.season === sea) + '">' +
               esc(SEA.all[sea].label) + (sea === SEA.now ? '<span class="season-now" aria-label="(now)"></span>' : '') + '</button>';
-          }).join('') + '</div>';
+          }).join('') +
+          (SEA.all.care ? '<button type="button" role="tab" class="season-tab care-tab" data-season="care" aria-selected="' + (st.season === 'care') + '">Four-Season Care<span class="care-tab-sub">One annual agreement</span></button>' : '') +
+          '</div>';
       }
+      if (st.season === 'care') {
+        h += '<p class="care-note">Your property looked after all year: cleanups, mowing and upkeep, and snow removal all winter. We walk the grounds with you first, then set the scope and price together.</p>';
+      } else
       h += '<fieldset><legend>How can we help?</legend><div class="chips">' +
         picks(st.season).map(function (p) {
           var base = SVCS.filter(function (x) { return x.id === p.svc; })[0];
@@ -181,7 +187,7 @@
           s.freq.map(function (f) { return chip('data-freq="' + esc(f) + '"', esc(f), st.freq === f); }).join('') +
           '</div></fieldset>';
       }
-      h += '<p class="lead">Share a few photos of your property and we\u2019ll follow up personally with an estimate.</p>';
+      if (st.season !== 'care') h += '<p class="lead">Share a few photos of your property and we\u2019ll follow up personally with an estimate.</p>';
     }
 
     if (st.step === 2) {
@@ -230,7 +236,7 @@
   root.addEventListener('click', function (e) {
     var b = e.target.closest('button');
     if (!b || !root.contains(b)) return;
-    if (b.dataset.season) { if (b.dataset.season !== st.season) { st.season = b.dataset.season; st.svc = null; st.freq = null; } document.documentElement.setAttribute('data-tone', st.season); render(); var t = root.querySelector('.season-tab[aria-selected="true"]'); if (t) t.focus(); return; }
+    if (b.dataset.season) { if (b.dataset.season !== st.season) { st.season = b.dataset.season; st.svc = st.season === 'care' ? 'care' : null; st.freq = null; } document.documentElement.setAttribute('data-tone', st.season); render(); var t = root.querySelector('.season-tab[aria-selected="true"]'); if (t) t.focus(); return; }
     if (b.dataset.svc) { st.svc = b.dataset.svc; st.freq = null; render(); return; }
     if (b.dataset.freq) { st.freq = b.dataset.freq; render(); return; }
     var act = b.dataset.act;
