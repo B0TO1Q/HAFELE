@@ -288,4 +288,21 @@
   }
 
   render();
+
+  // Keep the hero photo's crop steady: the quote panel grows and shrinks as
+  // seasons/services change, so size the photo once (with headroom) instead
+  // of letting it rescale with the hero's height.
+  (function lockHero() {
+    var hero = document.querySelector('.hero'), img = hero && hero.querySelector('.hero-img');
+    if (!img) return;
+    var lastW = 0;
+    function size() {
+      if (window.innerWidth === lastW) return;
+      lastW = window.innerWidth;
+      img.style.height = '';
+      img.style.height = 'max(100%, ' + (hero.offsetHeight + 320) + 'px)';
+    }
+    size();
+    window.addEventListener('resize', size);
+  })();
 })();
