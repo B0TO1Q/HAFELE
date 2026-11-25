@@ -266,14 +266,7 @@
   }
   var list = document.getElementById('svc-list');
   if (list) {
-  // in-season services first, in the season's order; the rest after
-  var nowIds = picks(SEA.now).map(function (p) { return p.svc; });
-  var ordered = SVCS.slice().sort(function (a, b) {
-    var ia = nowIds.indexOf(a.id), ib = nowIds.indexOf(b.id);
-    if (a.id === 'other') ia = 99; if (b.id === 'other') ib = 99;
-    return (ia < 0 ? 50 + SVCS.indexOf(a) : ia) - (ib < 0 ? 50 + SVCS.indexOf(b) : ib);
-  });
-  list.innerHTML = ordered.map(function (s, i) {
+  list.innerHTML = SVCS.map(function (s, i) {
     return '<li class="svc-card">' + media(s.media) +
       '<div class="svc-meta"><span class="svc-num">' + String(i + 1).padStart(2, '0') + '</span>' +
       '<h3><a class="svc-title-link" href="services.html#' + ANCHOR[s.id] + '">' + esc(s.label) + '</a></h3></div>' +
