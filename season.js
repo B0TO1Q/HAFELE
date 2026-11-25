@@ -35,9 +35,9 @@
       label: 'Fall',
       picks: [
         { svc: 'maint', label: 'Fall cleanup', ask: 'I need a fall cleanup' },
-        { svc: 'seed', label: 'Fall seeding', ask: 'I need fall seeding / hydroseeding' },
+        { svc: 'seed', label: 'Fall overseeding', ask: 'I need fall overseeding' },
         { svc: 'gutter' },
-        { svc: 'snow', label: 'Reserve winter plowing', ask: 'I’d like to reserve snow plowing for this winter' },
+        { svc: 'snow', label: 'Reserve snow removal', ask: 'I’d like to reserve snow plowing for this winter' },
         { svc: 'care' },
         { svc: 'other' }
       ]

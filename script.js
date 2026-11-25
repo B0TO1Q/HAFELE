@@ -75,18 +75,18 @@
 
   // media: a real Hafele job photo/video, or null for the logo panel (until photos are added)
   var SVCS = [
-    { id: 'mow', label: 'Lawn care & mowing', ask: 'I need my lawn mowed', freq: ['One-time', 'Weekly', 'Every 2 weeks'],
+    { id: 'mow', label: 'Lawn & turf care', ask: 'I need my lawn mowed', freq: ['One-time', 'Weekly', 'Every 2 weeks'],
       media: { img: 'assets/img/backyard-hillside.jpg', alt: 'Long striped backyard lawn climbing toward a gray house' } },
-    { id: 'maint', label: 'Landscape maintenance', ask: 'I need landscape maintenance',
+    { id: 'maint', label: 'Grounds maintenance', ask: 'I need landscape maintenance',
       media: { img: 'assets/img/work-05.jpg', alt: 'Cape-style home with trimmed shrubs and a freshly mowed lawn' } },
-    { id: 'seed', label: 'Seeding & hydroseeding', ask: 'I need seeding / hydroseeding',
+    { id: 'seed', label: 'Lawn renovation', ask: 'I need seeding / hydroseeding',
       media: { img: 'assets/img/hydroseeding.jpg', alt: 'Fresh green hydroseed mulch spread over a lawn' } },
-    { id: 'gutter', label: 'Gutters & siding', ask: 'I need my gutters or siding cleaned',
+    { id: 'gutter', label: 'Gutter & exterior care', ask: 'I need my gutters or siding cleaned',
       media: { img: 'assets/img/gutters.jpg', alt: 'Leaf blower clearing a gutter along the roof edge' } },
-    { id: 'snow', label: 'Snow plowing', ask: 'I need snow plowing', freq: ['Whole season', 'Per storm'],
+    { id: 'snow', label: 'Snow removal', ask: 'I need snow plowing', freq: ['Whole season', 'Per storm'],
       media: { img: 'assets/img/snow-plowing.jpg', alt: 'Hafele plow truck clearing a snowy driveway' } },
     { id: 'care', label: 'Four-Season Care', ask: 'I\u2019m interested in Four-Season Care for my property, all year', featured: true },
-    { id: 'other', label: 'Something else', ask: 'I have a job I need help with',
+    { id: 'other', label: 'Special requests', ask: 'I have a job I need help with',
       media: { img: 'assets/img/sign.jpg', alt: 'Hafele yard sign on a freshly cut client lawn' } }
   ];
 
