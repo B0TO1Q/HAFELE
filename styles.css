@@ -496,3 +496,8 @@ html[data-tone="winter"] .hero-shade { background-color: rgba(16, 34, 26, 0.38);
 .care-note { font-size: 15px; line-height: 1.55; padding: 14px 0; border-top: 1px solid rgba(255,255,255,0.35); border-bottom: 1px solid rgba(255,255,255,0.35); }
 .season-tab.care-tab { white-space: nowrap; }
 @media (max-width: 420px) { .care-tab-sub { display: none; } }
+
+/* Four-Season Care leads; the line under it supports */
+.care-title { font-size: clamp(40px, 4.6vw, 68px); line-height: 1; }
+.care-sub { font-family: var(--display); font-size: clamp(20px, 1.8vw, 26px); font-weight: 400; letter-spacing: -0.01em; color: var(--gold); margin-top: -6px; }
+.care-title { white-space: nowrap; font-size: clamp(36px, 4vw, 60px); }
