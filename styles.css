@@ -484,3 +484,13 @@ html[data-tone="winter"] .hero-shade { background-color: rgba(16, 34, 26, 0.38);
 
 /* jumping to the estimate form never tucks it under the header */
 #book { scroll-margin-top: 96px; }
+
+/* Four-Season Care: a photo above each season */
+.care-media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: rgba(246,242,230,0.06); margin-bottom: 16px; }
+.care-media img, .care-media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.6s ease; }
+.care-media .is-on { opacity: 1; }
+.care-season { border-top: 0; padding-top: 0; }
+.care-season dt { border-top: 1px solid var(--gold); padding-top: 12px; }
+@media (prefers-reduced-motion: reduce) { .care-media img, .care-media video { transition: none; } }
+
+@media (min-width: 1001px) { .care-intro { position: sticky; top: 120px; } }

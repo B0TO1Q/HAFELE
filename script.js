@@ -303,4 +303,31 @@
     size();
     window.addEventListener('resize', size);
   })();
+
+  // Four-Season Care tiles: seasons with two shots slowly cross-fade;
+  // a video tile plays only while it's showing and on screen.
+  (function careTiles() {
+    var tiles = document.querySelectorAll('.care-media');
+    if (!tiles.length) return;
+    var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    Array.prototype.forEach.call(tiles, function (tile, n) {
+      var slides = tile.children, i = 0, seen = false;
+      function sync() {
+        Array.prototype.forEach.call(slides, function (el, k) {
+          el.classList.toggle('is-on', k === i);
+          if (el.tagName === 'VIDEO') {
+            if (k === i && seen) { el.preload = 'auto'; var p = el.play(); if (p && p.catch) p.catch(function () {}); }
+            else el.pause();
+          }
+        });
+      }
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (es) { seen = es[0].isIntersecting; sync(); }, { threshold: 0.2 }).observe(tile);
+      }
+      if (slides.length < 2 || calm) return;
+      setTimeout(function () {
+        setInterval(function () { if (!seen) return; i = (i + 1) % slides.length; sync(); }, 7000);
+      }, n * 900);
+    });
+  })();
 })();
