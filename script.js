@@ -139,7 +139,7 @@
     var lines = [
       'Hi Hafele, ' + (s ? s.ask.charAt(0).toLowerCase() + s.ask.slice(1) : 'I have a job') +
         (s && s.freq && st.freq ? ' (' + st.freq.toLowerCase() + ')' : '') +
-        '. Can I get a quote? I\'m sending photos of the property (lawn / driveway) with this message.',
+        '. Could you give me an estimate? I\'m sending photos of the property (lawn / driveway) with this message.',
       '',
       'Name: ' + st.name.trim(),
       'Cell: ' + st.phone.trim(),
@@ -157,7 +157,7 @@
   function render() {
     var h = '';
     if (st.step !== 3) {
-      h += '<div class="glass-head"><h2>Request a quote</h2><span class="count">0' + st.step + ' / 02</span></div>';
+      h += '<div class="glass-head"><h2>Request an estimate</h2><span class="count">0' + st.step + ' / 02</span></div>';
     }
 
     if (st.step === 1) {
@@ -168,7 +168,7 @@
               esc(SEA.all[sea].label) + (sea === SEA.now ? '<span class="season-now" aria-label="(now)"></span>' : '') + '</button>';
           }).join('') + '</div>';
       }
-      h += '<fieldset><legend>What do you need?</legend><div class="chips">' +
+      h += '<fieldset><legend>How can we help?</legend><div class="chips">' +
         picks(st.season).map(function (p) {
           var base = SVCS.filter(function (x) { return x.id === p.svc; })[0];
           return chip('data-svc="' + p.svc + '"', esc(p.label || base.label), st.svc === p.svc);
@@ -180,7 +180,7 @@
           s.freq.map(function (f) { return chip('data-freq="' + esc(f) + '"', esc(f), st.freq === f); }).join('') +
           '</div></fieldset>';
       }
-      h += '<p class="lead">Send us a few photos of your property and we\u2019ll get back to you with a quote.</p>';
+      h += '<p class="lead">Share a few photos of your property and we\u2019ll follow up personally with an estimate.</p>';
     }
 
     if (st.step === 2) {
@@ -190,7 +190,7 @@
         '<label>Cell<input type="tel" autocomplete="tel" data-field="phone" value="' + esc(st.phone) + '"></label>' +
         '<label class="full">Property address<input type="text" autocomplete="street-address" data-field="addr" value="' + esc(st.addr) + '"></label>' +
         '<div class="full photo-tip"><span class="photo-tip-h">Photos</span><p>After you tap Send, your text to Hafele opens. Tap <strong>+</strong> and add 2\u20134 photos of your lawn, driveway or the area you need done.</p></div>' +
-        '<label class="full">Notes (optional)<textarea rows="2" data-field="notes" placeholder="Gate code, dog in the yard, steep hill…">' + esc(st.notes) + '</textarea></label>' +
+        '<label class="full">Notes (optional)<textarea rows="2" data-field="notes" placeholder="Gate code, pets, anything we should know…">' + esc(st.notes) + '</textarea></label>' +
         '</div>';
     }
 
@@ -201,12 +201,12 @@
         (st.step === 2 ? 'Send' : 'Continue') + '</button></div>';
     } else {
       var smsHref = 'sms:' + PHONE + '?&body=' + encodeURIComponent(messageBody());
-      var mailHref = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('Quote request: ' + (svc() ? svc().label : '')) +
+      var mailHref = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('Estimate request: ' + (svc() ? svc().label : '')) +
         '&body=' + encodeURIComponent(messageBody());
       h += '<div class="done" style="display:flex;flex-direction:column;gap:12px">' +
         '<span class="done-kicker">ALMOST DONE</span>' +
         '<h2>Add your photos, then send.</h2>' +
-        '<ol class="done-steps"><li>In Messages, tap <strong>+</strong> next to the text box.</li><li>Pick 2\u20134 photos of your lawn, driveway or the area you need done.</li><li>Hit send. We reply within 24 hours with your quote.</li></ol>' +
+        '<ol class="done-steps"><li>In Messages, tap <strong>+</strong> next to the text box.</li><li>Pick 2\u20134 photos of your lawn, driveway or the area you need done.</li><li>Hit send. We reply within 24 hours with your estimate.</li></ol>' +
         '<p>Texting didn’t open? <a href="' + esc(smsHref) + '">Try again</a> or <a href="' + esc(mailHref) + '">send it by email</a> and attach your photos there.</p>' +
         '<button type="button" class="linkish" data-act="reset">Ask about something else</button>' +
         '</div>';
@@ -277,7 +277,7 @@
     return '<li class="svc-card">' + media(s.media) +
       '<div class="svc-meta"><span class="svc-num">' + String(i + 1).padStart(2, '0') + '</span>' +
       '<h3><a class="svc-title-link" href="services.html#' + ANCHOR[s.id] + '">' + esc(s.label) + '</a></h3></div>' +
-      '<div class="svc-links"><a class="svc-cta" href="#book" data-pick="' + s.id + '">Request a quote</a>' +
+      '<div class="svc-links"><a class="svc-cta" href="#book" data-pick="' + s.id + '">Request an estimate</a>' +
       '<a class="svc-more" href="services.html#' + ANCHOR[s.id] + '">Details</a></div></li>';
   }).join('');
   list.addEventListener('click', function (e) {

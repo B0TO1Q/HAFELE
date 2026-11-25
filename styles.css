@@ -449,3 +449,7 @@ html[data-tone="winter"] .hero-shade { background-color: rgba(16, 34, 26, 0.38);
 
 /* Less air between the header and the first line of the hero */
 .hero-in { padding-top: calc(var(--sp-section) * 0.6); }
+
+/* bottom bar: room for "Get an estimate" on the narrowest phones */
+.mbar a { white-space: nowrap; }
+@media (max-width: 380px) { .mbar a { font-size: 14px; } .mbar a.mbar-book { flex: 1.8; } }

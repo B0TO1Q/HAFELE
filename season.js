@@ -43,7 +43,7 @@
       label: 'Winter',
       picks: [
         { svc: 'snow' },
-        { svc: 'mow', label: 'Spring mowing list', ask: 'I’d like to get on your spring mowing list', freq: ['Weekly', 'Every 2 weeks'] },
+        { svc: 'mow', label: 'Reserve spring mowing', ask: 'I’d like to get on your spring mowing list', freq: ['Weekly', 'Every 2 weeks'] },
         { svc: 'other' }
       ]
     }
