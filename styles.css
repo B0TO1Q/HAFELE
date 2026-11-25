@@ -446,3 +446,6 @@ html[data-tone="winter"] .hero-img { filter: grayscale(0.9) brightness(0.96) con
 html[data-tone="spring"] .hero-shade { background-color: rgba(14, 26, 18, 0.24); }
 html[data-tone="winter"] .hero-shade { background-color: rgba(16, 34, 26, 0.38); }
 @media (prefers-reduced-motion: reduce) { .hero-img, .hero-shade { transition: none; } }
+
+/* Less air between the header and the first line of the hero */
+.hero-in { padding-top: calc(var(--sp-section) * 0.6); }
