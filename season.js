@@ -14,7 +14,7 @@
     spring: {
       label: 'Spring',
       picks: [
-        { svc: 'maint', label: 'Spring cleanup', ask: 'I need a spring cleanup' },
+        { svc: 'maint', label: 'Spring Cleanup', ask: 'I need a spring cleanup' },
         { svc: 'mow' },
         { svc: 'seed' },
         { svc: 'gutter' },
@@ -32,10 +32,10 @@
     fall: {
       label: 'Fall',
       picks: [
-        { svc: 'maint', label: 'Fall cleanup', ask: 'I need a fall cleanup' },
-        { svc: 'seed', label: 'Aeration & overseeding', ask: 'I need aeration and overseeding' },
+        { svc: 'maint', label: 'Fall Cleanup', ask: 'I need a fall cleanup' },
+        { svc: 'seed', label: 'Aeration & Overseeding', ask: 'I need aeration and overseeding' },
         { svc: 'gutter' },
-        { svc: 'snow', label: 'Reserve snow removal', ask: 'I’d like to reserve snow plowing for this winter' },
+        { svc: 'snow', label: 'Reserve Snow Removal', ask: 'I’d like to reserve snow plowing for this winter' },
         { svc: 'other' }
       ]
     },
@@ -48,7 +48,7 @@
       label: 'Winter',
       picks: [
         { svc: 'snow' },
-        { svc: 'mow', label: 'Reserve spring mowing', ask: 'I’d like to get on your spring mowing list', freq: ['Weekly', 'Every 2 weeks'] },
+        { svc: 'mow', label: 'Reserve Spring Mowing', ask: 'I’d like to get on your spring mowing list', freq: ['Weekly', 'Every 2 Weeks'] },
         { svc: 'other' }
       ]
     }

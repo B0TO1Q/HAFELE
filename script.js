@@ -75,18 +75,18 @@
 
   // media: a real Hafele job photo/video, or null for the logo panel (until photos are added)
   var SVCS = [
-    { id: 'mow', label: 'Lawn & turf care', ask: 'I need my lawn mowed', freq: ['One-time', 'Weekly', 'Every 2 weeks'],
+    { id: 'mow', label: 'Lawn & Turf Care', ask: 'I need my lawn mowed', freq: ['One-Time', 'Weekly', 'Every 2 Weeks'],
       media: { img: 'assets/img/backyard-hillside.jpg', alt: 'Long striped backyard lawn climbing toward a gray house' } },
-    { id: 'maint', label: 'Grounds maintenance', ask: 'I need landscape maintenance',
+    { id: 'maint', label: 'Grounds Maintenance', ask: 'I need landscape maintenance',
       media: { img: 'assets/img/work-05.jpg', alt: 'Cape-style home with trimmed shrubs and a freshly mowed lawn' } },
-    { id: 'seed', label: 'Lawn renovation', ask: 'I need seeding / hydroseeding',
+    { id: 'seed', label: 'Lawn Renovation', ask: 'I need seeding / hydroseeding',
       media: { img: 'assets/img/hydroseeding.jpg', alt: 'Fresh green hydroseed mulch spread over a lawn' } },
-    { id: 'gutter', label: 'Gutter & exterior care', ask: 'I need my gutters or siding cleaned',
+    { id: 'gutter', label: 'Gutter & Exterior Care', ask: 'I need my gutters or siding cleaned',
       media: { img: 'assets/img/gutters.jpg', alt: 'Leaf blower clearing a gutter along the roof edge' } },
-    { id: 'snow', label: 'Snow removal', ask: 'I need snow plowing', freq: ['Whole season', 'Per storm'],
+    { id: 'snow', label: 'Snow Removal', ask: 'I need snow plowing', freq: ['Whole Season', 'Per Storm'],
       media: { img: 'assets/img/snow-plowing.jpg', alt: 'Hafele plow truck clearing a snowy driveway' } },
     { id: 'care', label: 'Four-Season Care', ask: 'I\u2019m interested in Four-Season Care for my property, all year', featured: true },
-    { id: 'other', label: 'Special requests', ask: 'I have a job I need help with',
+    { id: 'other', label: 'Special Requests', ask: 'I have a job I need help with',
       media: { img: 'assets/img/sign.jpg', alt: 'Hafele yard sign on a freshly cut client lawn' } }
   ];
 
@@ -159,7 +159,7 @@
   function render() {
     var h = '';
     if (st.step !== 3) {
-      h += '<div class="glass-head"><h2>Request an estimate</h2><span class="count">0' + st.step + ' / 02</span></div>';
+      h += '<div class="glass-head"><h2>Request an Estimate</h2><span class="count">0' + st.step + ' / 02</span></div>';
     }
 
     if (st.step === 1) {
@@ -169,13 +169,13 @@
             return '<button type="button" role="tab" class="season-tab" data-season="' + sea + '" aria-selected="' + (st.season === sea) + '">' +
               esc(SEA.all[sea].label) + (sea === SEA.now ? '<span class="season-now" aria-label="(now)"></span>' : '') + '</button>';
           }).join('') +
-          (SEA.all.care ? '<button type="button" role="tab" class="season-tab care-tab" data-season="care" aria-selected="' + (st.season === 'care') + '">Four-Season Care<span class="care-tab-sub">One annual agreement</span></button>' : '') +
+          (SEA.all.care ? '<button type="button" role="tab" class="season-tab care-tab" data-season="care" aria-selected="' + (st.season === 'care') + '">Four-Season Care<span class="care-tab-sub">One Annual Agreement</span></button>' : '') +
           '</div>';
       }
       if (st.season === 'care') {
         h += '<p class="care-note">Your property looked after all year: cleanups, mowing and upkeep, and snow removal all winter. We walk the grounds with you first, then set the scope and price together.</p>';
       } else
-      h += '<fieldset><legend>How can we help?</legend><div class="chips">' +
+      h += '<fieldset><legend>How Can We Help?</legend><div class="chips">' +
         picks(st.season).map(function (p) {
           var base = SVCS.filter(function (x) { return x.id === p.svc; })[0];
           return chip('data-svc="' + p.svc + '"', esc(p.label || base.label), st.svc === p.svc);
@@ -183,7 +183,7 @@
         '</div></fieldset>';
       var s = svc();
       if (s && s.freq) {
-        h += '<fieldset><legend>How often?</legend><div class="chips">' +
+        h += '<fieldset><legend>How Often?</legend><div class="chips">' +
           s.freq.map(function (f) { return chip('data-freq="' + esc(f) + '"', esc(f), st.freq === f); }).join('') +
           '</div></fieldset>';
       }
@@ -195,9 +195,9 @@
       h += '<div class="fields">' +
         '<label>Name<input type="text" autocomplete="name" data-field="name" value="' + esc(st.name) + '"></label>' +
         '<label>Cell<input type="tel" autocomplete="tel" data-field="phone" value="' + esc(st.phone) + '"></label>' +
-        '<label class="full">Property address<input type="text" autocomplete="street-address" data-field="addr" value="' + esc(st.addr) + '"></label>' +
+        '<label class="full">Property Address<input type="text" autocomplete="street-address" data-field="addr" value="' + esc(st.addr) + '"></label>' +
         '<div class="full photo-tip"><span class="photo-tip-h">Photos</span><p>After you tap Send, your text to Hafele opens. Tap <strong>+</strong> and add 2\u20134 photos of your lawn, driveway or the area you need done.</p></div>' +
-        '<label class="full">Notes (optional)<textarea rows="2" data-field="notes" placeholder="Gate code, pets, anything we should know…">' + esc(st.notes) + '</textarea></label>' +
+        '<label class="full">Notes (Optional)<textarea rows="2" data-field="notes" placeholder="Gate code, pets, anything we should know…">' + esc(st.notes) + '</textarea></label>' +
         '</div>';
     }
 
@@ -212,10 +212,10 @@
         '&body=' + encodeURIComponent(messageBody());
       h += '<div class="done" style="display:flex;flex-direction:column;gap:12px">' +
         '<span class="done-kicker">ALMOST DONE</span>' +
-        '<h2>Add your photos, then send.</h2>' +
+        '<h2>Add Your Photos, Then Send.</h2>' +
         '<ol class="done-steps"><li>In Messages, tap <strong>+</strong> next to the text box.</li><li>Pick 2\u20134 photos of your lawn, driveway or the area you need done.</li><li>Hit send. We reply within 24 hours with your estimate.</li></ol>' +
         '<p>Texting didn’t open? <a href="' + esc(smsHref) + '">Try again</a> or <a href="' + esc(mailHref) + '">send it by email</a> and attach your photos there.</p>' +
-        '<button type="button" class="linkish" data-act="reset">Ask about something else</button>' +
+        '<button type="button" class="linkish" data-act="reset">Ask About Something Else</button>' +
         '</div>';
     }
 
@@ -277,7 +277,7 @@
     return '<li class="svc-card">' + media(s.media) +
       '<div class="svc-meta"><span class="svc-num">' + String(i + 1).padStart(2, '0') + '</span>' +
       '<h3><a class="svc-title-link" href="services.html#' + ANCHOR[s.id] + '">' + esc(s.label) + '</a></h3></div>' +
-      '<div class="svc-links"><a class="svc-cta" href="#book" data-pick="' + s.id + '">Request an estimate</a>' +
+      '<div class="svc-links"><a class="svc-cta" href="#book" data-pick="' + s.id + '">Request an Estimate</a>' +
       '<a class="svc-more" href="services.html#' + ANCHOR[s.id] + '">Details</a></div></li>';
   }).join('');
 
