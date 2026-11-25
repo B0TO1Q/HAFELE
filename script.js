@@ -50,7 +50,7 @@
   (function reveal() {
     if (!('IntersectionObserver' in window)) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var sel = '.fact, .sec-head, .svc-card, .svc-row, .faq-intro, .faq-list, .about-copy, .about-media, .contact-card, .area-label, .area-towns, .cta-in, .footer-grid, .care-intro, .care-season';
+    var sel = '.fact, .sec-head, .svc-card, .svc-row, .faq-intro, .faq-list, .about-copy, .about-media, .contact-card, .area-label, .area-towns, .cta-in, .footer-grid, .care-intro, .care-season, .review';
     function arm() {
       var els = document.querySelectorAll(sel);
       if (!els.length) return;
