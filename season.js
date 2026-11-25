@@ -82,6 +82,26 @@
       img.alt = h.alt;
       img.src = h.img;
     },
-    line: function (el) { if (el) el.textContent = SEASONS[now].line; }
+    line: function (el) { if (el) el.textContent = SEASONS[now].line; },
+    // Switch the whole look to another season (quote panel tabs)
+    show: function (id) {
+      if (!SEASONS[id]) return;
+      document.documentElement.setAttribute('data-season', id);
+      var line = document.getElementById('season-line');
+      if (line) line.textContent = SEASONS[id].line;
+      var img = document.getElementById('hero-img');
+      if (!img) return;
+      var h = SEASONS[id].hero;
+      if (img.getAttribute('src') === h.img) return;
+      var next = new Image();
+      next.onload = function () {
+        img.classList.add('is-swapping');
+        setTimeout(function () {
+          img.src = h.img; img.alt = h.alt; img.style.objectPosition = h.pos;
+          img.classList.remove('is-swapping');
+        }, 250);
+      };
+      next.src = h.img;
+    }
   };
 })();

@@ -119,7 +119,7 @@
     var p = picks(st.season).filter(function (x) { return x.svc === st.svc; })[0] || {};
     return { id: base.id, label: p.label || base.label, ask: p.ask || base.ask, freq: p.freq || base.freq, media: base.media };
   }
-  function pick(id) { st.season = seasonFor(id); st.svc = id; st.freq = null; st.step = 1; }
+  function pick(id) { st.season = seasonFor(id); st.svc = id; st.freq = null; st.step = 1; if (SEA.show) SEA.show(st.season); }
 
   function okNow() {
     var s = svc();
@@ -229,7 +229,7 @@
   root.addEventListener('click', function (e) {
     var b = e.target.closest('button');
     if (!b || !root.contains(b)) return;
-    if (b.dataset.season) { if (b.dataset.season !== st.season) { st.season = b.dataset.season; st.svc = null; st.freq = null; } render(); var t = root.querySelector('.season-tab[aria-selected="true"]'); if (t) t.focus(); return; }
+    if (b.dataset.season) { if (b.dataset.season !== st.season) { st.season = b.dataset.season; st.svc = null; st.freq = null; } if (SEA.show) SEA.show(st.season); render(); var t = root.querySelector('.season-tab[aria-selected="true"]'); if (t) t.focus(); return; }
     if (b.dataset.svc) { st.svc = b.dataset.svc; st.freq = null; render(); return; }
     if (b.dataset.freq) { st.freq = b.dataset.freq; render(); return; }
     var act = b.dataset.act;
@@ -245,6 +245,7 @@
       }
     }
     if (act === 'reset') {
+      if (SEA.show) SEA.show(SEA.now);
       st = { step: 1, season: SEA.now, svc: null, freq: null, name: st.name, phone: st.phone, addr: st.addr, notes: '' };
       render();
     }

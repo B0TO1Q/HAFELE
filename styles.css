@@ -474,3 +474,13 @@ html[data-season="winter"] .hero-shade { background: rgba(12, 22, 26, 0.36); }
 html[data-season="winter"] .cta::before, html[data-season="winter"] .page-head::before {
   background: radial-gradient(30% 45% at 78% 40%, rgba(214, 226, 236, 0.10), rgba(214, 226, 236, 0) 70%);
 }
+
+/* season switch: quick cross-fade of the hero photo */
+.hero-img { transition: opacity .25s ease; }
+.hero-img.is-swapping { opacity: 0; }
+
+/* quote buttons: one even size, and a lone last button spans the row */
+.chips { grid-auto-rows: minmax(52px, auto); }
+.chips .chip { min-height: 52px; }
+.chips .chip:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.season-tab { min-height: 44px; display: flex; align-items: center; justify-content: center; }
