@@ -239,7 +239,7 @@ for t in TOWNS:
         {"@type": "ListItem", "position": 1, "name": "Home", "item": SITE + "/"},
         {"@type": "ListItem", "position": 2, "name": "Service Areas", "item": SITE + "/service-areas/"},
         {"@type": "ListItem", "position": 3, "name": f"{n}, CT", "item": url}]}]
-    svc = ''.join(f'<li><a href="/index.html?service={k}#book"><span class="ts-name">{e(s)}</span><span class="ts-desc">{e(d)}</span></a></li>' for s, k, a, d in SVCS)
+    svc = ''.join(f'<li><a href="/?service={k}#book"><span class="ts-name">{e(s)}</span><span class="ts-desc">{e(d)}</span></a></li>' for s, k, a, d in SVCS)
     near = ', '.join(f'<a href="/service-areas/{bySlug[x]["slug"]}/">{e(x)}</a>' if x in bySlug else f'<span>{e(x)}</span>' for x in t['near'])
     faq = ''.join(f'<details class="faq-item"><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q, a in t['faq'])
     page = head(title, desc, url, ld) + f'''

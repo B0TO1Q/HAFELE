@@ -324,7 +324,7 @@ def head(title, desc, url, img, extra=''):
 '''
 
 def foot(svc):
-    q = f"/index.html?service={svc}#book" if svc else "/#book"
+    q = f"/?service={svc}#book" if svc else "/#book"
     return f'''
 <section class="cta">
   <div class="wrap cta-in">
@@ -396,7 +396,7 @@ for i, p in enumerate(POSTS):
     <figure class="post-figure"><img src="/assets/img/{p["img"]}" alt="{e(p["alt"])}"></figure>
     <div class="prose">
 {md(p["body"])}
-      <p class="post-ask"><a class="btn btn-solid" href="/index.html?service={p["svc"]}#book">Request an Estimate</a><span>Send a few photos and we’ll reply within 24 hours.</span></p>
+      <p class="post-ask"><a class="btn btn-solid" href="/?service={p["svc"]}#book">Request an Estimate</a><span>Send a few photos and we’ll reply within 24 hours.</span></p>
     </div>
   </div>
   <section class="post-more">
