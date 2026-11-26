@@ -1,3 +1,12 @@
+/* Self-hosted fonts (no Google Fonts request) */
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url(assets/fonts/inter-latin-400-normal.woff2) format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url(assets/fonts/inter-latin-500-normal.woff2) format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url(assets/fonts/inter-latin-600-normal.woff2) format('woff2'); }
+@font-face { font-family: 'Inter Tight'; font-style: normal; font-weight: 400; font-display: swap; src: url(assets/fonts/inter-tight-latin-400-normal.woff2) format('woff2'); }
+@font-face { font-family: 'Inter Tight'; font-style: normal; font-weight: 500; font-display: swap; src: url(assets/fonts/inter-tight-latin-500-normal.woff2) format('woff2'); }
+@font-face { font-family: 'Inter Tight'; font-style: normal; font-weight: 600; font-display: swap; src: url(assets/fonts/inter-tight-latin-600-normal.woff2) format('woff2'); }
+@font-face { font-family: 'Inter Tight'; font-style: normal; font-weight: 700; font-display: swap; src: url(assets/fonts/inter-tight-latin-700-normal.woff2) format('woff2'); }
+
 /* Hafele Landscaping & Snow Removal
    One grid, two typefaces, three colors. */
 
@@ -648,3 +657,29 @@ html[data-tone="winter"] .hero-shade { background-color: rgba(16, 34, 26, 0.38);
 .nf { max-width: 760px; }
 .nf-lead { font-family: var(--display); font-size: clamp(20px, 2vw, 26px); line-height: 1.4; color: var(--green); letter-spacing: -0.01em; }
 .nf-links { margin-top: 24px; border-top: 1px solid var(--ink); }
+
+/* Reserve the estimate panel's space before script.js fills it (stops mobile layout shift).
+   Heights measured per season tone and width; season.js sets data-tone in <head>. */
+#book:empty { min-height: var(--bk, 560px); }
+html[data-tone="spring"], html[data-tone="fall"] { --bk: 593px; }
+html[data-tone="summer"], html[data-tone="winter"] { --bk: 534px; }
+@media (max-width: 1000px) {
+  html[data-tone="spring"], html[data-tone="fall"] { --bk: 563px; }
+  html[data-tone="summer"], html[data-tone="winter"] { --bk: 503px; }
+}
+@media (max-width: 720px) {
+  html[data-tone="spring"], html[data-tone="fall"] { --bk: 588px; }
+  html[data-tone="summer"], html[data-tone="winter"] { --bk: 528px; }
+}
+@media (max-width: 420px) {
+  html[data-tone="spring"], html[data-tone="fall"] { --bk: 605px; }
+  html[data-tone="summer"], html[data-tone="winter"] { --bk: 538px; }
+}
+@media (max-width: 400px) {
+  html[data-tone="spring"], html[data-tone="fall"] { --bk: 624px; }
+  html[data-tone="summer"], html[data-tone="winter"] { --bk: 557px; }
+}
+@media (max-width: 370px) {
+  html[data-tone="spring"] { --bk: 665px; } html[data-tone="fall"] { --bk: 677px; }
+  html[data-tone="summer"] { --bk: 591px; } html[data-tone="winter"] { --bk: 610px; }
+}

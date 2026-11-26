@@ -284,9 +284,8 @@ def head(title, desc, url, img, extra=''):
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" href="/assets/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/inter-tight-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/styles.css?v={VER}">
 <link rel="icon" type="image/png" href="/assets/logo/favicon.png">
 <meta name="theme-color" content="#1D3326">
@@ -296,8 +295,8 @@ def head(title, desc, url, img, extra=''):
 <header class="topbar">
   <div class="wrap topbar-in">
     <a href="/" class="brand" aria-label="Hafele Landscaping &amp; Snow Removal LLC — home">
-      <img class="brand-emblem" src="/assets/logo/emblem-green.png" alt="">
-      <img class="brand-word" src="/assets/logo/wordmark-green.png" alt="">
+      <img class="brand-emblem" src="/assets/logo/emblem-green.png" alt="" width="400" height="286">
+      <img class="brand-word" src="/assets/logo/wordmark-green.png" alt="" width="834" height="210">
     </a>
     <nav aria-label="Main" class="nav">
       <a class="dnav dnav-sec" href="/">Home</a>
@@ -341,7 +340,7 @@ def foot(svc):
 <footer class="footer">
   <div class="wrap">
     <div class="footer-grid">
-      <img class="footer-logo" src="/assets/logo/lockup-gold.png" alt="Hafele Landscaping &amp; Snow Removal LLC">
+      <img class="footer-logo" src="/assets/logo/lockup-gold.png" alt="Hafele Landscaping &amp; Snow Removal LLC" width="860" height="719">
       <div class="fcol">
         <span class="fh">Contact</span>
         <a href="tel:+12035606079">(203) 560-6079</a>
