@@ -539,3 +539,8 @@ html[data-tone="winter"] .hero-shade { background-color: rgba(16, 34, 26, 0.38);
 /* Done screen: headline sits tight, no empty space under the last link */
 .done h2 { font-size: clamp(24px, 6.4vw, 30px); line-height: 1.12; letter-spacing: -0.015em; }
 .done .done-steps { line-height: 1.45; }
+
+/* Jump links (#book, #care) must never scroll a section's own clipped
+   content: "clip" can't be scrolled the way "hidden" can, which is what
+   slid the hero's photo and tint up and left a band of bare photo below. */
+.hero, .care, .cta, .page-head, .footer { overflow: clip; }

@@ -310,4 +310,9 @@
     window.addEventListener('resize', size);
   })();
 
+
+  // Older browsers without overflow: clip: undo any scroll a jump link gives a clipped section
+  Array.prototype.forEach.call(document.querySelectorAll('.hero, .care, .cta, .page-head'), function (el) {
+    el.addEventListener('scroll', function () { if (el.scrollTop || el.scrollLeft) { el.scrollTop = 0; el.scrollLeft = 0; } });
+  });
 })();
