@@ -20,8 +20,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20261126g">
-<script src="season.js?v=20261126g"></script>
+<link rel="stylesheet" href="styles.css?v=20261126h">
+<script src="season.js?v=20261126h"></script>
+<link rel="preload" as="image" type="image/webp" imagesrcset="assets/img/w/hero-800.webp 800w, assets/img/w/hero-1200.webp 1200w, assets/img/w/hero-1800.webp 1800w" imagesizes="100vw" fetchpriority="high">
 <link rel="icon" type="image/png" href="assets/logo/favicon.png">
 <meta name="theme-color" content="#1D3326">
 </head>
@@ -57,7 +58,7 @@
 <main>
 
 <section id="top" class="hero">
-  <img class="hero-img" src="assets/img/hero.jpg" alt="Freshly striped front lawn at a gray home with a three-car garage">
+  <img class="hero-img" fetchpriority="high" src="assets/img/w/hero-1200.webp" srcset="assets/img/w/hero-800.webp 800w, assets/img/w/hero-1200.webp 1200w, assets/img/w/hero-1800.webp 1800w" sizes="100vw" width="1800" height="1350" decoding="async" alt="Freshly striped front lawn at a gray home with a three-car garage">
   <div class="hero-tone" aria-hidden="true"></div>
   <div class="hero-shade"></div>
   <div class="wrap hero-in">
@@ -392,7 +393,7 @@
   <a class="mbar-book" href="/#book">Get an Estimate</a>
 </div>
 
-<script src="script.js?v=20261126g"></script>
+<script src="script.js?v=20261126h"></script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6eabc4d03504421d9767bbcb174fd07f"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

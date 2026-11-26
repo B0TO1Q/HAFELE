@@ -74,6 +74,7 @@
   var EMAIL = 'hafelelandscapingllc@gmail.com';
 
   // media: a real Hafele job photo/video, or null for the logo panel (until photos are added)
+  /* WEBP-SIZES */ var WEBP = {"backyard-hillside":[800,1200],"fall-cleanup":[800,1200],"gutters":[800,1200],"hero":[800,1200,1800],"hydroseeding":[800,1200],"lawn-stripes":[574],"sign":[800,1200],"snow-plowing":[800,1200],"work-01":[800,1200],"work-02":[800,1200],"work-04":[800,1200],"work-05":[800,1200],"work-06":[800,1200],"work-07":[800,1200]}; /* /WEBP-SIZES */
   var SVCS = [
     { id: 'mow', label: 'Lawn & Turf Care', ask: 'I need my lawn mowed', freq: ['One-Time', 'Weekly', 'Every 2 Weeks'],
       media: { img: 'assets/img/lawn-stripes.jpg?v=3', alt: 'Lawn mowed in bold diagonal stripes below a sunlit rise' } },
@@ -269,7 +270,16 @@
   function media(m) {
     if (!m) return '<div class="svc-media svc-media-logo"><img src="assets/logo/emblem-gold.png" alt=""></div>';
     if (m.video) return '<div class="svc-media"><video src="' + m.video + '" poster="' + m.poster + '" autoplay muted loop playsinline preload="metadata" aria-label="' + esc(m.alt) + '"></video></div>';
-    return '<div class="svc-media"><img src="' + m.img + '" alt="' + esc(m.alt) + '" loading="lazy"></div>';
+    var stem = (m.img.match(/assets\/img\/([a-z0-9-]+)\.jpg/) || [])[1];
+    var ws = stem && WEBP[stem];
+    if (ws) {
+      var base = 'assets/img/w/' + stem;
+      var mid = ws.indexOf(1200) > -1 ? 1200 : ws[ws.length - 1];
+      return '<div class="svc-media"><img src="' + base + '-' + mid + '.webp" srcset="' +
+        ws.map(function (w) { return base + '-' + w + '.webp ' + w + 'w'; }).join(', ') +
+        '" sizes="(max-width: 720px) 100vw, (max-width: 1000px) 50vw, 420px" alt="' + esc(m.alt) + '" loading="lazy" decoding="async"></div>';
+    }
+    return '<div class="svc-media"><img src="' + m.img + '" alt="' + esc(m.alt) + '" loading="lazy" decoding="async"></div>';
   }
   var list = document.getElementById('svc-list');
   if (list) {

@@ -643,3 +643,8 @@ html[data-tone="winter"] .hero-shade { background-color: rgba(16, 34, 26, 0.38);
 /* Reviews heading: label over title, flush left with the quotes below */
 #reviews .sec-head { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
 #reviews .sec-head .eyebrow, #reviews .sec-head .sec-title { grid-column: auto; margin: 0; }
+
+/* 404 page */
+.nf { max-width: 760px; }
+.nf-lead { font-family: var(--display); font-size: clamp(20px, 2vw, 26px); line-height: 1.4; color: var(--green); letter-spacing: -0.01em; }
+.nf-links { margin-top: 24px; border-top: 1px solid var(--ink); }
