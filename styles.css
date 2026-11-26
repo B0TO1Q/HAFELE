@@ -630,3 +630,12 @@ html[data-tone="winter"] .hero-shade { background-color: rgba(16, 34, 26, 0.38);
 .hub-towns a { color: var(--green); text-decoration: none; border-bottom: 1px solid var(--gold); }
 @media (max-width: 1000px) { .town-grid { grid-template-columns: minmax(0, 1fr); gap: 48px; } .town-side { position: static; } .hub-towns { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 720px) { .hub-towns { grid-template-columns: repeat(2, minmax(0, 1fr)); } .town-intro { font-size: 19px; } }
+
+/* Reviews: a lead quote across the top, the rest in pairs */
+.reviews .review { grid-column: span 6; }
+.reviews .review-lead { grid-column: 1 / -1; }
+.review-lead blockquote p { font-size: clamp(24px, 2.6vw, 38px); max-width: 30em; }
+.review-meta { display: flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; color: var(--ink-soft); }
+.review-stars { color: #B79A4E; letter-spacing: 2px; font-size: 15px; }
+.review:not(.review-lead) blockquote p { font-size: clamp(20px, 1.8vw, 26px); }
+@media (max-width: 720px) { .reviews .review { grid-column: 1 / -1; } }
