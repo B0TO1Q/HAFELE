@@ -2,7 +2,7 @@
 Run from anywhere: python3 build.py  -> writes into the HAFELE repo."""
 import html, json, os, re, markdown
 
-REPO = '/home/claude/hafele-repo'
+REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = 'https://hafelelandscaping.com'
 V = open(os.path.join(REPO, 'index.html')).read()
 VER = re.search(r'styles\.css\?v=([0-9a-z]+)', V).group(1)
@@ -355,7 +355,7 @@ def foot(svc):
     </div>
     <div class="footer-base">
       <span>© 2026 Hafele Landscaping &amp; Snow Removal LLC</span>
-      <span>Licensed &amp; Insured · BBB Accredited Business</span>
+      <span><a href="/service-areas/">Service Areas</a> · <a href="/blog/">Blog</a> · Licensed &amp; Insured · BBB Accredited</span>
     </div>
   </div>
 </footer>

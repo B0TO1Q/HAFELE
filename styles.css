@@ -599,3 +599,34 @@ html[data-tone="winter"] .hero-shade { background-color: rgba(16, 34, 26, 0.38);
   .post-figure { margin-top: 28px; }
   .post-dek { font-size: 17px; }
 }
+
+/* ================================================================
+   Service areas (town pages)
+   ================================================================ */
+.area-towns a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--gold); }
+.area-towns a:hover { color: var(--green); border-bottom-color: var(--green); }
+.footer-base a { color: inherit; text-decoration: none; border-bottom: 1px solid rgba(203,179,115,0.5); }
+.footer-base a:hover { color: var(--gold); }
+.page-head .crumbs { margin-bottom: 2px; }
+.town-trust { margin-top: 18px; }
+.town-grid { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 64px; align-items: start; }
+.town-prose { margin: 0; padding-bottom: 0; max-width: 700px; }
+.town-intro { font-size: 21px; line-height: 1.55; color: var(--green); font-family: var(--display); font-weight: 500; letter-spacing: -0.01em; }
+.town-figure { margin: 32px 0 8px; aspect-ratio: 16 / 9; overflow: hidden; background: var(--paper-2); }
+.town-figure img { width: 100%; height: 100%; object-fit: cover; }
+.town-side { position: sticky; top: 104px; border-top: 1px solid var(--ink); padding-top: 18px; }
+.town-svcs { list-style: none; margin: 14px 0 0; padding: 0; }
+.town-svcs a { display: flex; flex-direction: column; gap: 3px; padding: 14px 0; border-bottom: 1px solid var(--rule); text-decoration: none; color: var(--ink); }
+.town-svcs a:hover .ts-name { text-decoration: underline; text-underline-offset: 4px; }
+.ts-name { font-family: var(--display); font-weight: 600; font-size: 17px; color: var(--green); }
+.ts-name::after { content: " \2192"; color: #8A7434; }
+.ts-desc { font-size: 14px; line-height: 1.5; color: var(--ink-soft); }
+.town-side-note { margin-top: 16px; font-size: 14px; color: var(--ink-soft); }
+.town-near { margin-top: 14px; font-family: var(--display); font-size: clamp(20px, 2vw, 26px); line-height: 1.45; letter-spacing: -0.01em; max-width: 48em; }
+.town-near a { color: var(--green); text-decoration: none; border-bottom: 1px solid var(--gold); }
+.town-near a + a::before, .town-near span + a::before, .town-near a + span::before, .town-near span + span::before { content: ""; }
+.hub-towns { list-style: none; margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 1px solid var(--ink); column-gap: var(--gutter); }
+.hub-towns li { padding: 14px 0; border-bottom: 1px solid var(--rule); font-family: var(--display); font-weight: 500; font-size: 18px; }
+.hub-towns a { color: var(--green); text-decoration: none; border-bottom: 1px solid var(--gold); }
+@media (max-width: 1000px) { .town-grid { grid-template-columns: minmax(0, 1fr); gap: 48px; } .town-side { position: static; } .hub-towns { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 720px) { .hub-towns { grid-template-columns: repeat(2, minmax(0, 1fr)); } .town-intro { font-size: 19px; } }
